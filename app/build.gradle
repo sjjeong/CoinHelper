@@ -76,4 +76,7 @@ dependencies {
 
     // CircleImageView
     implementation "de.hdodenhof:circleimageview:$circle_imageview_version"
+
+    // Koin Android
+    implementation "org.koin:koin-android:$koin_version"
 }

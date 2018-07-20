@@ -48,4 +48,6 @@ ext {
     firebase_version = '16.0.0'
 
     circle_imageview_version = '2.2.0'
+
+    koin_version = '0.9.3'
 }
