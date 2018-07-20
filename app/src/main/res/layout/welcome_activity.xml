@@ -10,9 +10,7 @@
 
     </data>
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <android.support.constraint.ConstraintLayout style="@style/RootViewGroup">
 
         <com.googry.coinhelper.ui.custom.NonSwipeViewPager
             android:id="@+id/vp_content"

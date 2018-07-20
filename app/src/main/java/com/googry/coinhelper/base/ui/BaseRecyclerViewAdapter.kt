@@ -6,19 +6,19 @@ import io.reactivex.subjects.PublishSubject
 abstract class BaseRecyclerViewAdapter<ITEM : Any>
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    protected var data = mutableListOf<ITEM>()
+    protected var items = mutableListOf<ITEM>()
 
     val itemClickEvent: PublishSubject<Int> = PublishSubject.create()
 
     fun add(item: ITEM?) {
         item?.let {
-            data.add(it)
+            items.add(it)
         }
     }
 
     fun replaceAll(items: List<ITEM>?) {
         items?.let {
-            data.run {
+            this.items.run {
                 clear()
                 addAll(it)
             }
@@ -26,15 +26,19 @@ abstract class BaseRecyclerViewAdapter<ITEM : Any>
     }
 
     fun clear() {
-        data.clear()
+        items.clear()
     }
 
-    fun getItem(position: Int) = data[position]
+    fun getItem(position: Int) = items[position]
 
 
-    override fun getItemCount(): Int = data.size
+    override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as? BaseViewHolder<*, *>)?.onBindViewHolder(data[position])
+        (holder as? BaseViewHolder<*, *>)?.onBindViewHolder(items[position])
+    }
+
+    override fun getItemId(position: Int): Long {
+        return items[position].hashCode().toLong()
     }
 }
