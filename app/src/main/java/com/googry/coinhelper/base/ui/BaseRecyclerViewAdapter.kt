@@ -38,7 +38,4 @@ abstract class BaseRecyclerViewAdapter<ITEM : Any>
         (holder as? BaseViewHolder<*, *>)?.onBindViewHolder(items[position])
     }
 
-    override fun getItemId(position: Int): Long {
-        return items[position].hashCode().toLong()
-    }
 }

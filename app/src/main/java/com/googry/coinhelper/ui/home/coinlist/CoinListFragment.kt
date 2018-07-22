@@ -1,7 +1,6 @@
 package com.googry.coinhelper.ui.home.coinlist
 
 import android.os.Bundle
-import android.support.v7.widget.DividerItemDecoration
 import android.view.View
 import android.view.ViewGroup
 import com.googry.coinhelper.R
@@ -13,8 +12,6 @@ import com.googry.coinhelper.databinding.CoinListFragmentBinding
 import com.googry.coinhelper.databinding.CoinListItemBinding
 import com.googry.coinhelper.viewmodel.CoinListViewModel
 import org.koin.android.architecture.ext.viewModel
-import android.support.v7.widget.DefaultItemAnimator
-
 
 
 class CoinListFragment
@@ -43,8 +40,6 @@ class CoinListFragment
                                     }
                                 }
                             }
-                }.apply {
-                    setHasStableIds(true)
                 }
             }
         }

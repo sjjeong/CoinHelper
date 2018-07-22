@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">CoinHelper</string>
+    <string name="admob_app_key">ca-app-pub-3455486566753347~2819068799</string>
+    <string name="admob_start_interstitial">ca-app-pub-3455486566753347/4239536643</string>
+    
     <string name="next">Next</string>
 </resources>

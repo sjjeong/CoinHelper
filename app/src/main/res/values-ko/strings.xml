@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">CoinHelper</string>
+    <string name="app_name">코인헬퍼</string>
     <string name="next">다음으로</string>
     <string name="skip">건너뛰기</string>
     <string name="start">시작하기</string>

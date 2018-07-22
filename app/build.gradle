@@ -69,6 +69,7 @@ dependencies {
 
     // Firebase
     implementation "com.google.firebase:firebase-core:$firebaseCoreVersion"
+    implementation "com.google.firebase:firebase-ads:$firebaseAdsVersion"
 
     // CircleImageView
     implementation "de.hdodenhof:circleimageview:$circleImageviewVersion"
@@ -80,3 +81,5 @@ dependencies {
     // Page Indicator
     implementation "com.romandanylyk:pageindicatorview:$pagerIndicatorVersion"
 }
+
+apply plugin: 'com.google.gms.google-services'

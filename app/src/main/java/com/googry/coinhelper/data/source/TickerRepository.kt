@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
 
 class TickerRepository(val coinoneApi: CoinoneApi) : TickerDataSource {
 
-    private val REQUEST_TIME_IN_MILLIS = 5000L
+    private val REQUEST_TIME_IN_MILLIS = 2000L
 
     override fun getAllTicker(response: (market: String, tickers: Map<String, ITicker>) -> Any)
             : Disposable =
