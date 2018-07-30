@@ -1,7 +1,22 @@
 <resources>
-    <string name="app_name">CoinHelper</string>
+    <string name="app_name">코인헬퍼</string>
     <string name="admob_app_key">ca-app-pub-3455486566753347~2819068799</string>
     <string name="admob_start_interstitial">ca-app-pub-3455486566753347/4239536643</string>
     
-    <string name="next">Next</string>
+    <string name="description_welcome_title">환영합니다!</string>
+    <string name="description_welcome_content">간단한 설정을 하고\n앱을 사용해봐요.</string>
+    <string name="description_select_main_exchange_title">사용 중인 주 거래소를\n선택해 주세요.</string>
+    <string name="next">다음으로</string>
+    <string name="skip">건너뛰기</string>
+    <string name="start">시작하기</string>
+    <string name="description_back_finish">\'뒤로\' 버튼을 한번 더 누르시면 종료됩니다.</string>
+    <string name="trade_amount_m_fmt">%,d 백만</string>
+    <string name="trade_amount_g_fmt">%,d 십억</string>
+    <string name="coin_name">코인명</string>
+    <string name="last">현재가</string>
+    <string name="trade_amount">거래대금</string>
+    <string name="coinone">코인원</string>
+    <string name="upbit">업비트</string>
+    <string name="bithumb">빗썸</string>
+
 </resources>

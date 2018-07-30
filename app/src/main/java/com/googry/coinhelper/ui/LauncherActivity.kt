@@ -46,7 +46,6 @@ class LauncherActivity : AppCompatActivity() {
         }
     }
 
-
     fun startApp() {
         startActivity(Intent(applicationContext, WelcomeActivity::class.java))
         finish()

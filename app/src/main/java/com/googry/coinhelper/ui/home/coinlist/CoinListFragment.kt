@@ -8,6 +8,7 @@ import com.googry.coinhelper.base.ui.BaseFragment
 import com.googry.coinhelper.base.ui.BaseRecyclerViewAdapter
 import com.googry.coinhelper.base.ui.BaseViewHolder
 import com.googry.coinhelper.data.model.ITicker
+import com.googry.coinhelper.data.model.Ticker
 import com.googry.coinhelper.databinding.CoinListFragmentBinding
 import com.googry.coinhelper.databinding.CoinListItemBinding
 import com.googry.coinhelper.viewmodel.CoinListViewModel
@@ -29,14 +30,14 @@ class CoinListFragment
             setLifecycleOwner(this@CoinListFragment)
             this.coinListViewModel = this@CoinListFragment.coinListViewModel
             rvContent.run {
-                adapter = object : BaseRecyclerViewAdapter<ITicker>() {
+                adapter = object : BaseRecyclerViewAdapter<Ticker>() {
                     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-                            object : BaseViewHolder<ITicker, CoinListItemBinding>(
+                            object : BaseViewHolder<Ticker, CoinListItemBinding>(
                                     R.layout.coin_list_item, parent
                             ) {
-                                override fun onViewCreated(item: ITicker?) {
+                                override fun onViewCreated(item: Ticker?) {
                                     binding?.run {
-                                        ticker = item?.toTicker()
+                                        ticker = item
                                     }
                                 }
                             }

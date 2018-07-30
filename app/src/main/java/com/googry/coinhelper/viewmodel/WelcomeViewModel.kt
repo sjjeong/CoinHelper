@@ -17,7 +17,7 @@ class WelcomeViewModel
 
     var pageCnt = 0
 
-    var nextActivity: (() -> Any)? = null
+    var nextActivity: (() -> Unit)? = null
 
     fun onNextClick() {
         liveCurrentPagePosition.value?.run {

@@ -16,11 +16,14 @@ abstract class BaseViewHolder<ITEM : Any, B : ViewDataBinding>(
 
     protected var binding: B? = DataBindingUtil.bind(itemView)
 
-    fun onBindViewHolder(item: Any?) = try {
-        @Suppress("UNCHECKED_CAST")
-        onViewCreated(item as? ITEM?)
-    } catch (e: Exception) {
-        itemView.visibility = View.GONE
+    fun onBindViewHolder(item: Any?) {
+        try {
+            @Suppress("UNCHECKED_CAST")
+            onViewCreated(item as? ITEM?)
+            binding?.executePendingBindings()
+        } catch (e: Exception) {
+            itemView.visibility = View.GONE
+        }
     }
 
     abstract fun onViewCreated(item: ITEM?)

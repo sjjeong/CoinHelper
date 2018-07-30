@@ -3,6 +3,7 @@ package com.googry.coinhelper.ui.home
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.widget.DrawerLayout
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.googry.coinhelper.R
@@ -10,6 +11,8 @@ import com.googry.coinhelper.base.ui.BaseActivity
 import com.googry.coinhelper.databinding.HomeActivityBinding
 import com.googry.coinhelper.ext.addFragment
 import com.googry.coinhelper.ui.home.coinlist.CoinListFragment
+import com.googry.coinhelper.viewmodel.MainExchangeSelectViewModel
+import org.koin.android.architecture.ext.viewModel
 
 class HomeActivity
     : BaseActivity<HomeActivityBinding>(R.layout.home_activity) {
@@ -17,6 +20,8 @@ class HomeActivity
     private val coinListFragment by lazy { CoinListFragment.newInstance() }
 
     private val exitToast by lazy { Toast.makeText(applicationContext, R.string.description_back_finish, Toast.LENGTH_LONG) }
+
+    private val mainExchangeSelectViewModel by viewModel<MainExchangeSelectViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +49,9 @@ class HomeActivity
                     }
                 })
             }
+        }
+        mainExchangeSelectViewModel.getMainExchange {
+            Log.e("googry", getString(it.nameRes))
         }
     }
 

@@ -2,6 +2,7 @@ package com.googry.coinhelper.ui.welcome
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import com.googry.coinhelper.R
 import com.googry.coinhelper.base.ui.BaseActivity
 import com.googry.coinhelper.databinding.WelcomeActivityBinding
@@ -21,8 +22,16 @@ class WelcomeActivity
             setLifecycleOwner(this@WelcomeActivity)
             this.welcomeViewModel = this@WelcomeActivity.welcomeViewModel.apply {
                 nextActivity = {
-                    startActivity(Intent(applicationContext, HomeActivity::class.java))
-                    finish()
+                    (vpContent.adapter as? WelcomeAdapter)?.run {
+                        liveCurrentPagePosition.value?.let {
+                            if ((getItem(it) as MainExchangeSelectFragment).saveMainExchange()) {
+                                startActivity(Intent(applicationContext, HomeActivity::class.java))
+                                finish()
+                            } else {
+                                Toast.makeText(applicationContext, "주 거래소를 선택해 주세요.", Toast.LENGTH_LONG).show()
+                            }
+                        }
+                    }
                 }
             }
             vpContent.adapter = WelcomeAdapter(supportFragmentManager).also {

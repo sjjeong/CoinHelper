@@ -1,6 +1,7 @@
 package com.googry.coinhelper.ext
 
 import android.databinding.BindingAdapter
+import android.support.v4.widget.TextViewCompat
 import android.widget.TextView
 import com.googry.coinhelper.R
 import java.text.DecimalFormat
@@ -18,8 +19,20 @@ fun TextView.setTradeAmount(tradeAmount: Double) {
     text = String.format(context.getString(fmtResId), amount)
 }
 
-val doubleFormat = DecimalFormat("#.##")
+val doubleFormat = DecimalFormat("#,###.##")
 @BindingAdapter(value = ["last"])
 fun TextView.setLast(last: Double) {
     text = doubleFormat.format(last)
+}
+
+
+@BindingAdapter(value = ["autoSizeText"])
+fun TextView.setAutoSizeText(autoSizeText: Boolean) {
+    TextViewCompat.setAutoSizeTextTypeWithDefaults(this,
+            if (autoSizeText) {
+                TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM
+            } else {
+                TextViewCompat.AUTO_SIZE_TEXT_TYPE_NONE
+            }
+    )
 }

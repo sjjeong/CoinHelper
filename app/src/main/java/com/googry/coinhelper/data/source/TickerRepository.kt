@@ -1,6 +1,6 @@
 package com.googry.coinhelper.data.source
 
-import com.googry.coinhelper.data.enum.Market
+import com.googry.coinhelper.data.enums.Exchange
 import com.googry.coinhelper.data.model.ITicker
 import com.googry.coinhelper.network.api.CoinoneApi
 import io.reactivex.Observable
@@ -13,7 +13,7 @@ class TickerRepository(val coinoneApi: CoinoneApi) : TickerDataSource {
 
     private val REQUEST_TIME_IN_MILLIS = 2000L
 
-    override fun getAllTicker(response: (market: String, tickers: Map<String, ITicker>) -> Any)
+    override fun getAllTicker(response: (exchange: Exchange, tickers: Map<String, ITicker>) -> Any)
             : Disposable =
             Observable.interval(0, REQUEST_TIME_IN_MILLIS, TimeUnit.MILLISECONDS)
                     .observeOn(Schedulers.newThread())
@@ -21,7 +21,7 @@ class TickerRepository(val coinoneApi: CoinoneApi) : TickerDataSource {
                         coinoneApi.allTicker()
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribeOn(Schedulers.newThread())
-                                .subscribe { it -> response(Market.COINONE.marketName, it.toMap()) }
+                                .subscribe { it -> response(Exchange.COINONE, it.toMap()) }
 
                     }
 
