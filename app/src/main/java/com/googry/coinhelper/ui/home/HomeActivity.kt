@@ -39,6 +39,8 @@ class HomeActivity
                             clRoot.translationX = -clRoot.width * slideOffset
                             flSideRight.scaleX = 1 - slideOffset / 5
                             flSideRight.scaleY = 1 - slideOffset / 5
+
+                            icArrowForward.rotation = slideOffset * 180
                         }
                     }
 
@@ -49,9 +51,6 @@ class HomeActivity
                     }
                 })
             }
-        }
-        mainExchangeSelectViewModel.getMainExchange {
-            Log.e("googry", getString(it.nameRes))
         }
     }
 

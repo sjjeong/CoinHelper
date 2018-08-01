@@ -33,7 +33,7 @@
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_marginStart="8dp"
-                    android:background="@color/blue1" />
+                    android:src="@mipmap/ic_launcher" />
 
                 <TextView
                     style="@style/TitleText"
@@ -46,11 +46,12 @@
 
 
                 <ImageView
+                    android:id="@+id/ic_arrow_forward"
                     android:layout_width="36dp"
                     android:onClick="@{() -> view.onOpenSideMenuClick()}"
                     android:layout_height="36dp"
                     android:layout_marginEnd="8dp"
-                    android:background="@color/blue2" />
+                    android:src="@drawable/ic_action_arrow_forward"/>
             </LinearLayout>
 
             <FrameLayout

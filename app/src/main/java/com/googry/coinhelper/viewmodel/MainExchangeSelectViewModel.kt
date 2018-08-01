@@ -25,7 +25,7 @@ class MainExchangeSelectViewModel(
         return true
     }
 
-    fun getMainExchange(response: (exchange: Exchange) -> Unit) {
+    fun getMainExchange(response: (exchange: Exchange?) -> Unit) {
         mainExchangeDataSource.loadMainExchange {
             response.invoke(it)
         }

@@ -23,8 +23,8 @@ class WelcomeViewModel
         liveCurrentPagePosition.value?.run {
             if (pageCnt > this + 1) {
                 when (this) {
-                    0 -> liveBtnNextTextRes.value = R.string.skip
-                    1 -> liveBtnNextTextRes.value = R.string.start
+//                    0 -> liveBtnNextTextRes.value = R.string.skip
+                    0 -> liveBtnNextTextRes.value = R.string.start
                 }
                 liveCurrentPagePosition.value = this + 1
             } else {

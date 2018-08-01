@@ -18,5 +18,6 @@
     <string name="coinone">코인원</string>
     <string name="upbit">업비트</string>
     <string name="bithumb">빗썸</string>
+    <string name="please_select_main_exchange">주 거래소를 선택해 주세요.</string>
 
 </resources>

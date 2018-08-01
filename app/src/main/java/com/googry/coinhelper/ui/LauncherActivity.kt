@@ -9,9 +9,14 @@ import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
 import com.googry.coinhelper.BuildConfig
 import com.googry.coinhelper.R
+import com.googry.coinhelper.data.source.MainExchangeDataSource
+import com.googry.coinhelper.ui.home.HomeActivity
 import com.googry.coinhelper.ui.welcome.WelcomeActivity
+import org.koin.android.ext.android.inject
 
 class LauncherActivity : AppCompatActivity() {
+
+    val mainExchangeDataSource by inject<MainExchangeDataSource>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +52,13 @@ class LauncherActivity : AppCompatActivity() {
     }
 
     fun startApp() {
-        startActivity(Intent(applicationContext, WelcomeActivity::class.java))
-        finish()
+        mainExchangeDataSource.loadMainExchange {
+            if (it == null) {
+                startActivity(Intent(applicationContext, WelcomeActivity::class.java))
+            } else {
+                startActivity(Intent(applicationContext, HomeActivity::class.java))
+            }
+            finish()
+        }
     }
 }

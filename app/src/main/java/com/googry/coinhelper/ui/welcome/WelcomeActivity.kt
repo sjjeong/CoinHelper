@@ -28,7 +28,7 @@ class WelcomeActivity
                                 startActivity(Intent(applicationContext, HomeActivity::class.java))
                                 finish()
                             } else {
-                                Toast.makeText(applicationContext, "주 거래소를 선택해 주세요.", Toast.LENGTH_LONG).show()
+                                Toast.makeText(applicationContext, getString(R.string.please_select_main_exchange), Toast.LENGTH_LONG).show()
                             }
                         }
                     }

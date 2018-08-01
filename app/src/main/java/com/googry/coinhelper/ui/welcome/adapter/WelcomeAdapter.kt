@@ -12,7 +12,7 @@ class WelcomeAdapter(fm: FragmentManager)
 
     private val fragments = mutableListOf<Fragment>().apply {
         add(WelcomeFragment.newInstance())
-        add(SnsLoginFragment.newInstance())
+//        add(SnsLoginFragment.newInstance())
         add(MainExchangeSelectFragment.newInstance())
     }
 

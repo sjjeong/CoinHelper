@@ -24,8 +24,8 @@ class PrefUtils(application: Application) {
 
     }
 
-    fun loadExchange(): Exchange {
-        val jsonString = sharedPref.getString(PREF_KEY_EXCHANGE, null) ?: return Exchange.COINONE
+    fun loadExchange(): Exchange? {
+        val jsonString = sharedPref.getString(PREF_KEY_EXCHANGE, null) ?: return null
         return gson.fromJson<Exchange>(jsonString)
     }
 
