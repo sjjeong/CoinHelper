@@ -6,6 +6,14 @@
     <data>
 
         <variable
+            name="selectedPosition"
+            type="Integer" />
+
+        <variable
+            name="itemPosition"
+            type="Integer" />
+
+        <variable
             name="exchange"
             type="com.googry.coinhelper.data.enums.Exchange" />
     </data>
@@ -15,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
+        isSelected="@{selectedPosition == itemPosition}"
         android:background="@drawable/bg_exchange_item_selector">
 
         <TextView

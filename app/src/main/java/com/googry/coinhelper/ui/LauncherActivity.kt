@@ -52,7 +52,7 @@ class LauncherActivity : AppCompatActivity() {
     }
 
     fun startApp() {
-        mainExchangeDataSource.loadMainExchange {
+        mainExchangeDataSource.getSelectedExchange().let {
             if (it == null) {
                 startActivity(Intent(applicationContext, WelcomeActivity::class.java))
             } else {

@@ -2,36 +2,39 @@ package com.googry.coinhelper.ui.home
 
 import android.graphics.Color
 import android.os.Bundle
+import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.widget.DrawerLayout
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.googry.coinhelper.R
 import com.googry.coinhelper.base.ui.BaseActivity
 import com.googry.coinhelper.databinding.HomeActivityBinding
-import com.googry.coinhelper.ext.addFragment
-import com.googry.coinhelper.ui.home.coinlist.CoinListFragment
-import com.googry.coinhelper.viewmodel.MainExchangeSelectViewModel
+import com.googry.coinhelper.ext.logE
+import com.googry.coinhelper.ext.replaceFragmentInActivity
+import com.googry.coinhelper.viewmodel.ExchangeSelectViewModel
 import org.koin.android.architecture.ext.viewModel
 
 class HomeActivity
     : BaseActivity<HomeActivityBinding>(R.layout.home_activity) {
 
-    private val coinListFragment by lazy { CoinListFragment.newInstance() }
+    private val exchangeListFragment by lazy { ExchangeListFragment.newInstance() }
 
     private val exitToast by lazy { Toast.makeText(applicationContext, R.string.description_back_finish, Toast.LENGTH_LONG) }
 
-    private val mainExchangeSelectViewModel by viewModel<MainExchangeSelectViewModel>()
+    private val exchangeSelectViewModel by viewModel<ExchangeSelectViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        addFragment(coinListFragment)
+
+        replaceFragmentInActivity(exchangeListFragment, R.id.fl_side_right)
+
         binding.run {
             view = this@HomeActivity
             dlRoot.run {
                 setScrimColor(Color.TRANSPARENT)
                 addDrawerListener(object : DrawerLayout.DrawerListener {
                     override fun onDrawerStateChanged(newState: Int) {
+                        logE("onDrawerStateChanged $newState")
                     }
 
                     override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
@@ -45,13 +48,18 @@ class HomeActivity
                     }
 
                     override fun onDrawerClosed(drawerView: View) {
+                        logE("onDrawerClosed")
                     }
 
                     override fun onDrawerOpened(drawerView: View) {
+                        logE("onDrawerOpened")
                     }
                 })
             }
+            tlContent.setupWithViewPager(vpContent)
         }
+
+        refreshPage()
     }
 
     override fun onBackPressed() {
@@ -69,4 +77,21 @@ class HomeActivity
     fun onOpenSideMenuClick() {
         binding.dlRoot.openDrawer(binding.flSideRight)
     }
+
+    fun refreshPage() {
+        binding.run {
+            tvExchange.setText(exchangeSelectViewModel.getSelectedExchange().nameRes)
+            vpContent.adapter = object : FragmentPagerAdapter(supportFragmentManager) {
+
+                val pageTitles = exchangeSelectViewModel.getBaseCurrencies()
+
+                override fun getItem(position: Int) = CoinListFragment.newInstance(pageTitles[position])
+
+                override fun getCount() = pageTitles.size
+
+                override fun getPageTitle(position: Int) = pageTitles[position]
+            }
+        }
+    }
+
 }

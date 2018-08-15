@@ -6,5 +6,5 @@ interface MainExchangeDataSource {
 
     fun saveMainExchange(exchange: Exchange)
 
-    fun loadMainExchange(response: (exchange: Exchange?) -> Unit)
+    fun getSelectedExchange(): Exchange?
 }

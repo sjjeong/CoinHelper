@@ -1,4 +1,4 @@
-package com.googry.coinhelper.ui.home.coinlist
+package com.googry.coinhelper.ui.home
 
 import android.os.Bundle
 import android.view.View
@@ -7,7 +7,6 @@ import com.googry.coinhelper.R
 import com.googry.coinhelper.base.ui.BaseFragment
 import com.googry.coinhelper.base.ui.BaseRecyclerViewAdapter
 import com.googry.coinhelper.base.ui.BaseViewHolder
-import com.googry.coinhelper.data.model.ITicker
 import com.googry.coinhelper.data.model.Ticker
 import com.googry.coinhelper.databinding.CoinListFragmentBinding
 import com.googry.coinhelper.databinding.CoinListItemBinding
@@ -18,10 +17,17 @@ import org.koin.android.architecture.ext.viewModel
 class CoinListFragment
     : BaseFragment<CoinListFragmentBinding>(R.layout.coin_list_fragment) {
 
-    val coinListViewModel by viewModel<CoinListViewModel>()
+    private val coinListViewModel by viewModel<CoinListViewModel>()
 
     companion object {
-        fun newInstance() = CoinListFragment()
+
+        const val KEY_BASE_CURRENCY = "KEY_BASE_CURRENCY"
+
+        fun newInstance(baseCurrency: String) = CoinListFragment().apply {
+            arguments = Bundle().apply {
+                putString(KEY_BASE_CURRENCY, baseCurrency)
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,8 +41,14 @@ class CoinListFragment
                             object : BaseViewHolder<Ticker, CoinListItemBinding>(
                                     R.layout.coin_list_item, parent
                             ) {
+                                init {
+                                    itemView.setOnClickListener {
+                                        // TODO 아이템 선택하면 이벤트 처리
+                                    }
+                                }
+
                                 override fun onViewCreated(item: Ticker?) {
-                                    binding?.run {
+                                    binding.run {
                                         ticker = item
                                     }
                                 }

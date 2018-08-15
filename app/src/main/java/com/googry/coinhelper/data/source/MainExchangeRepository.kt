@@ -10,7 +10,5 @@ class MainExchangeRepository(private val prefUtils: PrefUtils)
         prefUtils.saveExchange(exchange)
     }
 
-    override fun loadMainExchange(response: (exchange: Exchange?) -> Unit) {
-        response.invoke(prefUtils.loadExchange())
-    }
+    override fun getSelectedExchange() = prefUtils.getExchange()
 }

@@ -4,7 +4,6 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import com.googry.coinhelper.ui.welcome.MainExchangeSelectFragment
-import com.googry.coinhelper.ui.welcome.SnsLoginFragment
 import com.googry.coinhelper.ui.welcome.WelcomeFragment
 
 class WelcomeAdapter(fm: FragmentManager)

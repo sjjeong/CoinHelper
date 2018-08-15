@@ -14,13 +14,13 @@ abstract class BaseViewHolder<ITEM : Any, B : ViewDataBinding>(
     : RecyclerView.ViewHolder(LayoutInflater.from(parent?.context)
         .inflate(layoutRes, parent, false)) {
 
-    protected var binding: B? = DataBindingUtil.bind(itemView)
+    protected var binding: B = DataBindingUtil.bind(itemView)!!
 
     fun onBindViewHolder(item: Any?) {
         try {
             @Suppress("UNCHECKED_CAST")
             onViewCreated(item as? ITEM?)
-            binding?.executePendingBindings()
+            binding.executePendingBindings()
         } catch (e: Exception) {
             itemView.visibility = View.GONE
         }

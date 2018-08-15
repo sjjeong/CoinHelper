@@ -1,4 +1,4 @@
-package com.googry.coinhelper.ui.welcome
+package com.googry.coinhelper.ui.home
 
 import android.os.Bundle
 import android.view.View
@@ -8,28 +8,26 @@ import com.googry.coinhelper.base.ui.BaseFragment
 import com.googry.coinhelper.base.ui.BaseRecyclerViewAdapter
 import com.googry.coinhelper.base.ui.BaseViewHolder
 import com.googry.coinhelper.data.enums.Exchange
+import com.googry.coinhelper.databinding.ExchangeListFragmentBinding
 import com.googry.coinhelper.databinding.ExchangeSelectItemBinding
-import com.googry.coinhelper.databinding.MainExchangeSelectFragmentBinding
 import com.googry.coinhelper.viewmodel.ExchangeSelectViewModel
 import org.koin.android.architecture.ext.viewModel
 
-class MainExchangeSelectFragment
-    : BaseFragment<MainExchangeSelectFragmentBinding>(R.layout.main_exchange_select_fragment) {
+class ExchangeListFragment
+    : BaseFragment<ExchangeListFragmentBinding>(R.layout.exchange_list_fragment) {
+
 
     private val exchangeSelectViewModel by viewModel<ExchangeSelectViewModel>()
 
     companion object {
-        fun newInstance() = MainExchangeSelectFragment()
+        fun newInstance() = ExchangeListFragment()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.run {
-            setLifecycleOwner(this@MainExchangeSelectFragment)
-            vm = exchangeSelectViewModel
+            exchangeSelectVM = exchangeSelectViewModel
             rvContent.adapter = object : BaseRecyclerViewAdapter<Exchange>() {
-
-                var selectedItemView: View? = null
 
                 override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
                         object : BaseViewHolder<Exchange, ExchangeSelectItemBinding>(
@@ -39,9 +37,12 @@ class MainExchangeSelectFragment
 
                             init {
                                 itemView.setOnClickListener {
-                                    exchangeSelectViewModel?.selectedItemPosition = adapterPosition
-                                    exchangeSelectViewModel.saveMainExchange()
-                                    notifyDataSetChanged()
+                                    if (exchangeSelectViewModel.selectedItemPosition != adapterPosition) {
+                                        exchangeSelectViewModel.selectedItemPosition = adapterPosition
+                                        exchangeSelectViewModel.saveMainExchange()
+                                        notifyDataSetChanged()
+                                        (activity as? HomeActivity)?.refreshPage()
+                                    }
                                 }
                             }
 
@@ -55,9 +56,5 @@ class MainExchangeSelectFragment
                         }
             }
         }
-    }
-
-    fun saveMainExchange(): Boolean {
-        return exchangeSelectViewModel.saveMainExchange()
     }
 }

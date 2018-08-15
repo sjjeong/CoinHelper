@@ -5,12 +5,8 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.googry.coinhelper.R
-import com.googry.coinhelper.ext.addFragment
+import com.googry.coinhelper.ext.replaceFragmentInActivity
 
-/**
- * Fragment를 보여주기 위한 Activity
- * Dagger를 사용하지 않음
- */
 abstract class BaseFragmentBindingActivity : AppCompatActivity() {
     protected lateinit var fragment: Fragment
 
@@ -18,7 +14,7 @@ abstract class BaseFragmentBindingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.base_fragment_binding_activity)
         fragment = createFragment().apply {
-            addFragment(this)
+            replaceFragmentInActivity(this, R.id.content_frame)
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }

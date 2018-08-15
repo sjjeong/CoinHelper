@@ -1,18 +1,18 @@
 package com.googry.coinhelper.ext
 
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
-import com.googry.coinhelper.R
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentTransaction
+import android.support.v7.app.AppCompatActivity
 
-internal fun FragmentActivity.addFragment(fragment: Fragment) {
-    supportFragmentManager.beginTransaction()
-            .add(R.id.content_frame, fragment)
-            .commit()
+fun AppCompatActivity.replaceFragmentInActivity(fragment: Fragment, frameId: Int) {
+    supportFragmentManager.transact {
+        replace(frameId, fragment)
+    }
 }
 
-internal fun FragmentActivity.replaceFragment(fragment: Fragment) {
-    supportFragmentManager.popBackStack()
-    supportFragmentManager.beginTransaction()
-            .replace(R.id.content_frame, fragment)
-            .commit()
+private inline fun FragmentManager.transact(action: FragmentTransaction.() -> Unit) {
+    beginTransaction().apply {
+        action()
+    }.commit()
 }

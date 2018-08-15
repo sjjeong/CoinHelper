@@ -9,65 +9,17 @@
             type="com.googry.coinhelper.viewmodel.CoinListViewModel" />
     </data>
 
-    <android.support.constraint.ConstraintLayout style="@style/FragmentRootViewGroup">
-
-        <LinearLayout
-            android:id="@+id/ll_top_banner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingBottom="4dp"
-            android:paddingEnd="12dp"
-            android:paddingStart="12dp"
-            android:paddingTop="4dp"
-            app:layout_constraintBottom_toTopOf="@id/rv_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.5"
-                android:text="@string/coin_name"
-                android:textSize="18sp" />
-
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_weight="3"
-                android:gravity="end"
-                android:text="@string/last"
-                android:textSize="18sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="end"
-                android:text="@string/trade_amount"
-                android:textSize="18sp" />
-        </LinearLayout>
+    <LinearLayout style="@style/FragmentRootViewGroup">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_content"
             replaceAll="@{coinListViewModel.liveTickers}"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:clipToPadding="false"
             android:paddingBottom="8dp"
             android:paddingTop="8dp"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ll_top_banner" />
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
-    </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
 </layout>

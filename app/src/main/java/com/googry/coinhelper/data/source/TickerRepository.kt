@@ -21,7 +21,8 @@ class TickerRepository(val coinoneApi: CoinoneApi) : TickerDataSource {
                         coinoneApi.allTicker()
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribeOn(Schedulers.newThread())
-                                .subscribe { it -> response(Exchange.COINONE, it.toMap()) }
+                                .subscribe {
+                                    it -> response(Exchange.COINONE, it.toMap()) }
 
                     }
 
