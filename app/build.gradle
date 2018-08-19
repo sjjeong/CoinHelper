@@ -17,6 +17,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "CoinoneRestUrl", "\"https://api.coinone.co.kr/\""
+        buildConfigField "String", "BithumbRestUrl", "\"https://api.bithumb.com/\""
 
     }
     buildTypes {

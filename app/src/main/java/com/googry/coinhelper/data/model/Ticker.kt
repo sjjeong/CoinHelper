@@ -1,8 +1,8 @@
 package com.googry.coinhelper.data.model
 
-data class Ticker(val currency: String,
-                  val last: Double,
-                  val high: Double,
-                  val low: Double,
-                  val first: Double,
-                  val volume: Double)
+data class Ticker(var currency: String,
+                  var last: Double,
+                  var high: Double,
+                  var low: Double,
+                  var first: Double,
+                  var volume: Double)

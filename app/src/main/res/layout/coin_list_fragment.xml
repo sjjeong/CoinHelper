@@ -5,7 +5,7 @@
     <data>
 
         <variable
-            name="coinListViewModel"
+            name="coinListVM"
             type="com.googry.coinhelper.viewmodel.CoinListViewModel" />
     </data>
 
@@ -13,7 +13,7 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_content"
-            replaceAll="@{coinListViewModel.liveTickers}"
+            replaceAll="@{coinListVM.liveTickers}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"

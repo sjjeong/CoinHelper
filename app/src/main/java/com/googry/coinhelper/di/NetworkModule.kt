@@ -1,6 +1,7 @@
 package com.googry.coinhelper.di
 
 import com.googry.coinhelper.BuildConfig
+import com.googry.coinhelper.network.api.BithumbApi
 import com.googry.coinhelper.network.api.CoinoneApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -10,8 +11,6 @@ import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-
-const val COINONE_NETWORK = "COINONE_NETWORK"
 
 val networkModule = applicationContext {
     bean {
@@ -34,13 +33,22 @@ val networkModule = applicationContext {
         RxJava2CallAdapterFactory.create() as CallAdapter.Factory
     }
 
-    bean(COINONE_NETWORK) {
+    bean() {
         Retrofit.Builder()
                 .baseUrl(BuildConfig.CoinoneRestUrl)
                 .client(get())
                 .addCallAdapterFactory(get())
                 .addConverterFactory(get())
                 .build()
-                .create(CoinoneApi::class.java) as CoinoneApi
+                .create(CoinoneApi::class.java)
+    }
+    bean() {
+        Retrofit.Builder()
+                .baseUrl(BuildConfig.BithumbRestUrl)
+                .client(get())
+                .addCallAdapterFactory(get())
+                .addConverterFactory(get())
+                .build()
+                .create(BithumbApi::class.java)
     }
 }

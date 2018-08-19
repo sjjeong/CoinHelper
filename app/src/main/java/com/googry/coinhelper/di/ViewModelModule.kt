@@ -8,6 +8,6 @@ import org.koin.dsl.module.applicationContext
 
 val viewModelModule = applicationContext {
     viewModel { WelcomeViewModel() }
-    viewModel { CoinListViewModel(get()) }
+    viewModel { CoinListViewModel(get(COMMON_TICKER_DATA_SOURCE)) }
     viewModel { ExchangeSelectViewModel(get()) }
 }

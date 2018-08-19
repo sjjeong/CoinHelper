@@ -80,7 +80,7 @@ class HomeActivity
 
     fun refreshPage() {
         binding.run {
-            tvExchange.setText(exchangeSelectViewModel.getSelectedExchange().nameRes)
+            tvExchange.text = getString(R.string.for_exchange_fmt, getString(exchangeSelectViewModel.getSelectedExchange().nameRes))
             vpContent.adapter = object : FragmentPagerAdapter(supportFragmentManager) {
 
                 val pageTitles = exchangeSelectViewModel.getBaseCurrencies()

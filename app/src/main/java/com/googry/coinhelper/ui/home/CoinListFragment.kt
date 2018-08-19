@@ -17,11 +17,11 @@ import org.koin.android.architecture.ext.viewModel
 class CoinListFragment
     : BaseFragment<CoinListFragmentBinding>(R.layout.coin_list_fragment) {
 
+    private val KEY_BASE_CURRENCY = "KEY_BASE_CURRENCY"
+
     private val coinListViewModel by viewModel<CoinListViewModel>()
 
     companion object {
-
-        const val KEY_BASE_CURRENCY = "KEY_BASE_CURRENCY"
 
         fun newInstance(baseCurrency: String) = CoinListFragment().apply {
             arguments = Bundle().apply {
@@ -32,9 +32,9 @@ class CoinListFragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        coinListViewModel.baseCurrency = arguments?.getString(KEY_BASE_CURRENCY)
         binding.run {
-            setLifecycleOwner(this@CoinListFragment)
-            this.coinListViewModel = this@CoinListFragment.coinListViewModel
+            coinListVM = coinListViewModel
             rvContent.run {
                 adapter = object : BaseRecyclerViewAdapter<Ticker>() {
                     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
