@@ -15,7 +15,7 @@ class CoinListViewModel(private val tickerDataSource: TickerDataSource)
 
     fun getAllTickers(): Disposable =
             tickerDataSource.getAllTicker(baseCurrency, success = {
-                liveTickers.postValue(it.sortedByDescending { it.last * it.volume })
+                liveTickers.postValue(it.sortedByDescending { it.volume })
             }, failed = {
 
             })

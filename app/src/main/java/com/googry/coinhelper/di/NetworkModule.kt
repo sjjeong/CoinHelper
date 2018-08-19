@@ -3,6 +3,7 @@ package com.googry.coinhelper.di
 import com.googry.coinhelper.BuildConfig
 import com.googry.coinhelper.network.api.BithumbApi
 import com.googry.coinhelper.network.api.CoinoneApi
+import com.googry.coinhelper.network.api.UpbitApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module.applicationContext
@@ -33,7 +34,7 @@ val networkModule = applicationContext {
         RxJava2CallAdapterFactory.create() as CallAdapter.Factory
     }
 
-    bean() {
+    bean {
         Retrofit.Builder()
                 .baseUrl(BuildConfig.CoinoneRestUrl)
                 .client(get())
@@ -42,7 +43,7 @@ val networkModule = applicationContext {
                 .build()
                 .create(CoinoneApi::class.java)
     }
-    bean() {
+    bean {
         Retrofit.Builder()
                 .baseUrl(BuildConfig.BithumbRestUrl)
                 .client(get())
@@ -50,5 +51,14 @@ val networkModule = applicationContext {
                 .addConverterFactory(get())
                 .build()
                 .create(BithumbApi::class.java)
+    }
+    bean {
+        Retrofit.Builder()
+                .baseUrl(BuildConfig.UpbitRestUrl)
+                .client(get())
+                .addCallAdapterFactory(get())
+                .addConverterFactory(get())
+                .build()
+                .create(UpbitApi::class.java)
     }
 }

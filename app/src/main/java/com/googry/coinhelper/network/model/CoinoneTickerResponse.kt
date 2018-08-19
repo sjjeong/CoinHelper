@@ -9,25 +9,25 @@ const val COINONE_TICKER_FIELD_TIMESTAMP = "timestamp"
 const val COINONE_TICKER_FIELD_RESULT = "result"
 
 data class CoinoneTicker(
-        @SerializedName("volume") val volume: String,
-        @SerializedName("last") val last: String,
+        @SerializedName("volume") val volume: Double,
+        @SerializedName("last") val last: Double,
         @SerializedName("yesterday_last") val yesterdayLast: String,
         @SerializedName("yesterday_low") val yesterdayLow: String,
-        @SerializedName("high") val high: String,
+        @SerializedName("high") val high: Double,
         @SerializedName("currency") val currency: String,
-        @SerializedName("low") val low: String,
+        @SerializedName("low") val low: Double,
         @SerializedName("yesterday_first") val yesterdayFirst: String,
         @SerializedName("yesterday_volume") val yesterdayVolume: String,
         @SerializedName("yesterday_high") val yesterdayHigh: String,
-        @SerializedName("first") val first: String
+        @SerializedName("first") val first: Double
 ) : ITicker {
     override fun toTicker() =
             Ticker(currency = currency,
-                    last = last.toDouble(),
-                    high = high.toDouble(),
-                    low = low.toDouble(),
-                    first = first.toDouble(),
-                    volume = volume.toDouble())
+                    last = last,
+                    high = high,
+                    low = low,
+                    first = first,
+                    volume = volume * last)
 
 }
 

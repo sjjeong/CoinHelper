@@ -18,6 +18,7 @@ android {
 
         buildConfigField "String", "CoinoneRestUrl", "\"https://api.coinone.co.kr/\""
         buildConfigField "String", "BithumbRestUrl", "\"https://api.bithumb.com/\""
+        buildConfigField "String", "UpbitRestUrl", "\"https://api.upbit.com/v1/\""
 
     }
     buildTypes {
