@@ -11,8 +11,10 @@ import com.googry.coinhelper.base.ui.BaseActivity
 import com.googry.coinhelper.databinding.HomeActivityBinding
 import com.googry.coinhelper.ext.logE
 import com.googry.coinhelper.ext.replaceFragmentInActivity
+import com.googry.coinhelper.viewmodel.CoinSortViewModel
 import com.googry.coinhelper.viewmodel.ExchangeSelectViewModel
 import org.koin.android.architecture.ext.viewModel
+import org.koin.android.architecture.ext.viewModelByClass
 
 class HomeActivity
     : BaseActivity<HomeActivityBinding>(R.layout.home_activity) {
@@ -23,6 +25,8 @@ class HomeActivity
 
     private val exchangeSelectViewModel by viewModel<ExchangeSelectViewModel>()
 
+    private val coinSortViewModel by viewModelByClass(true, CoinSortViewModel::class)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -30,6 +34,7 @@ class HomeActivity
 
         binding.run {
             view = this@HomeActivity
+            coinSortVM = coinSortViewModel
             dlRoot.run {
                 setScrimColor(Color.TRANSPARENT)
                 addDrawerListener(object : DrawerLayout.DrawerListener {

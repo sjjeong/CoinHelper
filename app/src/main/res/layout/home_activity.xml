@@ -5,9 +5,16 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="view"
             type="com.googry.coinhelper.ui.home.HomeActivity" />
+
+        <variable
+            name="coinSortVM"
+            type="com.googry.coinhelper.viewmodel.CoinSortViewModel" />
+
     </data>
 
     <android.support.v4.widget.DrawerLayout
@@ -57,12 +64,12 @@
                 android:id="@+id/tl_content"
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
-                app:tabPadding="2dp"
                 app:tabIndicatorHeight="0dp"
-                app:tabTextColor="@color/gray2"
-                app:tabSelectedTextColor="@color/blue4"
                 app:tabMode="scrollable"
-                app:tabTextAppearance="@style/TabLayoutTextStyle" />
+                app:tabPadding="2dp"
+                app:tabSelectedTextColor="@color/blue4"
+                app:tabTextAppearance="@style/TabLayoutTextStyle"
+                app:tabTextColor="@color/gray2" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -74,31 +81,79 @@
                 android:paddingStart="12dp"
                 android:paddingTop="4dp">
 
-                <TextView
+
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.5"
-                    android:text="@string/coin_name"
-                    android:textSize="18sp" />
+                    android:onClick='@{() ->coinSortVM.onSortClick("currency")}'
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/coin_name"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        isSelected="@{coinSortVM.liveIsDescending}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_arrow_drop_selector"
+                        android:visibility='@{coinSortVM.liveSelectedSortItem.equals("currency") ? View.VISIBLE : View.INVISIBLE}' />
+
+                </LinearLayout>
 
 
-                <TextView
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_weight="3"
-                    android:gravity="end"
-                    android:text="@string/last"
-                    android:textSize="18sp" />
+                    android:onClick='@{() ->coinSortVM.onSortClick("last")}'
+                    android:orientation="horizontal">
 
-                <TextView
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="@string/last"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        isSelected="@{coinSortVM.liveIsDescending}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_arrow_drop_selector"
+                        android:visibility='@{coinSortVM.liveSelectedSortItem.equals("last") ? View.VISIBLE : View.INVISIBLE}' />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:gravity="end"
-                    android:text="@string/trade_amount"
-                    android:textSize="18sp" />
+                    android:onClick='@{() ->coinSortVM.onSortClick("volume")}'
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="@string/trade_amount"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        isSelected="@{coinSortVM.liveIsDescending}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_arrow_drop_selector"
+                        android:visibility='@{coinSortVM.liveSelectedSortItem.equals("volume") ? View.VISIBLE : View.INVISIBLE}' />
+
+                </LinearLayout>
             </LinearLayout>
 
             <android.support.v4.view.ViewPager

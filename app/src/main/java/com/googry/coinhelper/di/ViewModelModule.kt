@@ -1,6 +1,7 @@
 package com.googry.coinhelper.di
 
 import com.googry.coinhelper.viewmodel.CoinListViewModel
+import com.googry.coinhelper.viewmodel.CoinSortViewModel
 import com.googry.coinhelper.viewmodel.ExchangeSelectViewModel
 import com.googry.coinhelper.viewmodel.WelcomeViewModel
 import org.koin.android.architecture.ext.viewModel
@@ -10,4 +11,5 @@ val viewModelModule = applicationContext {
     viewModel { WelcomeViewModel() }
     viewModel { CoinListViewModel(get(COMMON_TICKER_DATA_SOURCE)) }
     viewModel { ExchangeSelectViewModel(get()) }
+    viewModel { CoinSortViewModel() }
 }

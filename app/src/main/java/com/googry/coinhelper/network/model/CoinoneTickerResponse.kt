@@ -23,6 +23,7 @@ data class CoinoneTicker(
 ) : ITicker {
     override fun toTicker() =
             Ticker(currency = currency,
+                    baseCurrency = "KRW",
                     last = last,
                     high = high,
                     low = low,

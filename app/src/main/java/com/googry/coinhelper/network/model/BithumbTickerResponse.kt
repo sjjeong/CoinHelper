@@ -23,7 +23,7 @@ data class BithumbTickerResponse(
             @SerializedName("24H_fluctate_rate") val hFluctateRate: String
     ) : ITicker {
         override fun toTicker() =
-                Ticker(currency = "",
+                Ticker(baseCurrency = "KRW",
                         last = closingPrice,
                         high = maxPrice,
                         low = minPrice,

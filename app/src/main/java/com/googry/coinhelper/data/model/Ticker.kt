@@ -1,6 +1,7 @@
 package com.googry.coinhelper.data.model
 
-data class Ticker(var currency: String,
+data class Ticker(var currency: String = "",
+                  var baseCurrency: String = "",
                   var last: Double,
                   var high: Double,
                   var low: Double,

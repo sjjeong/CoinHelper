@@ -35,6 +35,7 @@ data class UpbitTicker(
     override fun toTicker() =
             Ticker(
                     currency = market.split("-")[1],
+                    baseCurrency = market.split("-")[0],
                     last = tradePrice,
                     high = highPrice,
                     low = lowPrice,

@@ -11,6 +11,9 @@ import com.googry.coinhelper.data.model.Ticker
 import com.googry.coinhelper.databinding.CoinListFragmentBinding
 import com.googry.coinhelper.databinding.CoinListItemBinding
 import com.googry.coinhelper.viewmodel.CoinListViewModel
+import com.googry.coinhelper.viewmodel.CoinSortViewModel
+import io.reactivex.subjects.BehaviorSubject
+import org.koin.android.architecture.ext.sharedViewModel
 import org.koin.android.architecture.ext.viewModel
 
 
@@ -20,6 +23,8 @@ class CoinListFragment
     private val KEY_BASE_CURRENCY = "KEY_BASE_CURRENCY"
 
     private val coinListViewModel by viewModel<CoinListViewModel>()
+
+    private val coinSortViewModel by sharedViewModel<CoinSortViewModel>()
 
     companion object {
 
@@ -33,6 +38,7 @@ class CoinListFragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         coinListViewModel.baseCurrency = arguments?.getString(KEY_BASE_CURRENCY)
+        coinListViewModel.coinSortViewModel = coinSortViewModel
         binding.run {
             coinListVM = coinListViewModel
             rvContent.run {
