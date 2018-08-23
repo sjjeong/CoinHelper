@@ -48,7 +48,7 @@
             <TextView
                 android:id="@+id/tv_last"
                 autoSizeText="@{true}"
-                last="@{ticker.last}"
+                last="@{ticker}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -67,7 +67,7 @@
             <TextView
                 android:id="@+id/tv_volume"
                 autoSizeText="@{true}"
-                tradeAmount="@{ticker.volume}"
+                tradeAmount="@{ticker}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="end"

@@ -4,42 +4,96 @@ import android.databinding.BindingAdapter
 import android.support.v4.widget.TextViewCompat
 import android.widget.TextView
 import com.googry.coinhelper.R
+import com.googry.coinhelper.data.enums.BaseCurrency
+import com.googry.coinhelper.data.model.Ticker
 import java.text.DecimalFormat
 
 @BindingAdapter(value = ["tradeAmount"])
-fun TextView.setTradeAmount(tradeAmount: Double) {
-    var amount: Long = (tradeAmount).toLong()
-    var fmtResId = when {
-        amount < 1_000L -> {
-            R.string.trade_amount_milli_fmt
+fun TextView.setTradeAmount(ticker: Ticker) {
+    when (ticker.baseCurrency.toUpperCase()) {
+        BaseCurrency.KRW.name -> {
+            var amount: Long = (ticker.volume).toLong()
+            text = String.format(context.getString(
+                    when {
+                        amount < 1_000_000L -> {
+                            R.string.trade_amount_fmt
+                        }
+                        amount < 1_000_000_000_000L -> {
+                            amount /= 1_000_000L
+                            R.string.trade_amount_mega_fmt
+                        }
+                        else -> {
+                            amount /= 1_000_000_000L
+                            R.string.trade_amount_giga_fmt
+                        }
+                    }
+            ), amount)
         }
-        amount < 1_000_000L -> {
-            R.string.trade_amount_fmt
+        BaseCurrency.BTC.name,
+        BaseCurrency.ETH.name -> {
+            text = String.format(context.getString(R.string.trade_amount_milli_fmt, ticker.volume))
         }
-        amount < 1_000_000_000L -> {
-            amount /= 1_000L
-            R.string.trade_amount_kilo_fmt
-        }
-        amount < 1_000_000_000_000L -> {
-            amount /= 1_000_000L
-            R.string.trade_amount_mega_fmt
+        BaseCurrency.USDT.name -> {
+            var amount: Long = (ticker.volume).toLong()
+            text = String.format(context.getString(when {
+                amount < 1_000_000L -> {
+                    R.string.trade_amount_fmt
+                }
+                amount < 1_000_000_000L -> {
+                    amount /= 1_000L
+                    R.string.trade_amount_kilo_fmt
+                }
+                amount < 1_000_000_000_000L -> {
+                    amount /= 1_000_000L
+                    R.string.trade_amount_mega_fmt
+                }
+                else -> {
+                    amount /= 1_000_000_000L
+                    R.string.trade_amount_giga_fmt
+                }
+            }), amount)
+
         }
         else -> {
-            amount /= 1_000_000_000L
-            R.string.trade_amount_giga_fmt
+            var amount: Long = (ticker.volume).toLong()
+            var fmtResId = when {
+                amount < 1_000L -> {
+                    R.string.trade_amount_milli_fmt
+                }
+                amount < 1_000_000L -> {
+                    R.string.trade_amount_fmt
+                }
+                amount < 1_000_000_000L -> {
+                    amount /= 1_000L
+                    R.string.trade_amount_kilo_fmt
+                }
+                amount < 1_000_000_000_000L -> {
+                    amount /= 1_000_000L
+                    R.string.trade_amount_mega_fmt
+                }
+                else -> {
+                    amount /= 1_000_000_000L
+                    R.string.trade_amount_giga_fmt
+                }
+            }
+            text = if (amount < 1_000L) {
+                String.format(context.getString(fmtResId), ticker.volume)
+            } else {
+                String.format(context.getString(fmtResId), amount)
+            }
         }
-    }
-    text = if(amount < 1_000L){
-        String.format(context.getString(fmtResId), tradeAmount)
-    }else{
-        String.format(context.getString(fmtResId), amount)
     }
 }
 
-val doubleFormat = DecimalFormat("#,###.######")
+val doubleFormat = DecimalFormat("#,##0.00000000")
+val intFormat = DecimalFormat("#,###.##")
 @BindingAdapter(value = ["last"])
-fun TextView.setLast(last: Double) {
-    text = doubleFormat.format(last)
+fun TextView.setLast(ticker: Ticker) {
+    text = if (ticker.last > 1) {
+        intFormat.format(ticker.last)
+    } else {
+        doubleFormat.format(ticker.last)
+    }
 }
 
 
