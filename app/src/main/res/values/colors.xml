@@ -20,4 +20,8 @@
     <color name="blue3">#577AC1</color>
     <color name="blue4">#384887</color>
     <color name="blue5">#161A39</color>
+
+    <color name="diff_up">#E6050B</color>
+    <color name="diff_down">#0C46C8</color>
+
 </resources>

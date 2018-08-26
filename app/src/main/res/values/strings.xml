@@ -18,6 +18,7 @@
     <string name="coin_name">코인명</string>
     <string name="last">현재가</string>
     <string name="trade_amount">거래대금</string>
+    <string name="trade_diff">전일대비</string>
     <string name="coinone">코인원</string>
     <string name="upbit">업비트</string>
     <string name="bithumb">빗썸</string>

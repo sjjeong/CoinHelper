@@ -13,7 +13,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "1.0"
+        versionName "0.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "CoinoneRestUrl", "\"https://api.coinone.co.kr/\""
@@ -83,6 +83,9 @@ dependencies {
 
     // Page Indicator
     implementation "com.romandanylyk:pageindicatorview:$pagerIndicatorVersion"
+
+    // Slide Up Pannel
+    implementation "com.sothree.slidinguppanel:library:$slideUpPannelVersion"
 }
 
 apply plugin: 'com.google.gms.google-services'

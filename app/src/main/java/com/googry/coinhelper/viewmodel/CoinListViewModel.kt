@@ -1,7 +1,6 @@
 package com.googry.coinhelper.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
-import android.util.Log
 import com.googry.coinhelper.base.ui.BaseViewModel
 import com.googry.coinhelper.data.model.Ticker
 import com.googry.coinhelper.data.source.ticker.TickerDataSource
@@ -32,7 +31,6 @@ class CoinListViewModel(private val tickerDataSource: TickerDataSource)
             })
 
     private fun sortTickers(tickers: List<Ticker>) {
-        Log.e("googry","${coinSortViewModel?.liveSelectedSortItem?.value!!} ${coinSortViewModel?.liveIsDescending?.value!!}")
         liveTickers.postValue(
                 if (coinSortViewModel?.liveIsDescending?.value!!) {
                     when (coinSortViewModel?.liveSelectedSortItem?.value!!) {
@@ -41,6 +39,9 @@ class CoinListViewModel(private val tickerDataSource: TickerDataSource)
                         }
                         "last" -> tickers.sortedByDescending {
                             it.last
+                        }
+                        "diff" -> tickers.sortedByDescending {
+                            (it.last - it.first) / it.first
                         }
                         else -> tickers.sortedByDescending {
                             it.volume
@@ -53,6 +54,9 @@ class CoinListViewModel(private val tickerDataSource: TickerDataSource)
                         }
                         "last" -> tickers.sortedBy {
                             it.last
+                        }
+                        "diff" -> tickers.sortedBy {
+                            (it.last - it.first) / it.first
                         }
                         else -> tickers.sortedBy {
                             it.volume

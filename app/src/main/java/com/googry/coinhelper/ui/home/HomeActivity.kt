@@ -9,10 +9,10 @@ import android.widget.Toast
 import com.googry.coinhelper.R
 import com.googry.coinhelper.base.ui.BaseActivity
 import com.googry.coinhelper.databinding.HomeActivityBinding
-import com.googry.coinhelper.ext.logE
 import com.googry.coinhelper.ext.replaceFragmentInActivity
 import com.googry.coinhelper.viewmodel.CoinSortViewModel
 import com.googry.coinhelper.viewmodel.ExchangeSelectViewModel
+import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import org.koin.android.architecture.ext.viewModel
 import org.koin.android.architecture.ext.viewModelByClass
 
@@ -30,48 +30,53 @@ class HomeActivity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        replaceFragmentInActivity(exchangeListFragment, R.id.fl_side_right)
+        replaceFragmentInActivity(exchangeListFragment, R.id.supl_content)
 
         binding.run {
             view = this@HomeActivity
             coinSortVM = coinSortViewModel
-            dlRoot.run {
-                setScrimColor(Color.TRANSPARENT)
-                addDrawerListener(object : DrawerLayout.DrawerListener {
-                    override fun onDrawerStateChanged(newState: Int) {
-                        logE("onDrawerStateChanged $newState")
-                    }
-
-                    override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
-                        if (drawerView.id == R.id.fl_side_right) {
-                            clRoot.translationX = -clRoot.width * slideOffset
-                            flSideRight.scaleX = 1 - slideOffset / 5
-                            flSideRight.scaleY = 1 - slideOffset / 5
-
-                            icArrowForward.rotation = slideOffset * 180
-                        }
-                    }
-
-                    override fun onDrawerClosed(drawerView: View) {
-                        logE("onDrawerClosed")
-                    }
-
-                    override fun onDrawerOpened(drawerView: View) {
-                        logE("onDrawerOpened")
-                    }
-                })
-            }
+//            dlRoot.run {
+//                setScrimColor(Color.TRANSPARENT)
+//                addDrawerListener(object : DrawerLayout.DrawerListener {
+//                    override fun onDrawerStateChanged(newState: Int) {
+//                    }
+//
+//                    override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+//                        if (drawerView.id == R.id.fl_side_right) {
+//                            clRoot.translationX = -clRoot.width * slideOffset
+//                            flSideRight.scaleX = 1 - slideOffset / 5
+//                            flSideRight.scaleY = 1 - slideOffset / 5
+//
+//                            icArrowForward.rotation = slideOffset * 180
+//                        }
+//                    }
+//
+//                    override fun onDrawerClosed(drawerView: View) {
+//                    }
+//
+//                    override fun onDrawerOpened(drawerView: View) {
+//                    }
+//                })
+//            }
             tlContent.setupWithViewPager(vpContent)
+            tvExchange.setOnClickListener {
+                suplRoot.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+            }
+
+            suplRoot.setFadeOnClickListener {
+                suplRoot.panelState = SlidingUpPanelLayout.PanelState.HIDDEN
+            }
+
         }
 
         refreshPage()
     }
 
     override fun onBackPressed() {
-        if (binding.dlRoot.isDrawerOpen(binding.flSideRight)) {
-            binding.dlRoot.closeDrawer(binding.flSideRight)
-            return
-        }
+//        if (binding.dlRoot.isDrawerOpen(binding.flSideRight)) {
+//            binding.dlRoot.closeDrawer(binding.flSideRight)
+//            return
+//        }
         if (exitToast.view.windowVisibility == View.VISIBLE) {
             super.onBackPressed()
         } else {
@@ -79,12 +84,13 @@ class HomeActivity
         }
     }
 
-    fun onOpenSideMenuClick() {
-        binding.dlRoot.openDrawer(binding.flSideRight)
-    }
+//    fun onOpenSideMenuClick() {
+//        binding.dlRoot.openDrawer(binding.flSideRight)
+//    }
 
     fun refreshPage() {
         binding.run {
+            suplRoot.panelState = SlidingUpPanelLayout.PanelState.HIDDEN
             tvExchange.text = getString(R.string.for_exchange_fmt, getString(exchangeSelectViewModel.getSelectedExchange().nameRes))
             vpContent.adapter = object : FragmentPagerAdapter(supportFragmentManager) {
 

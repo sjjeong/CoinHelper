@@ -22,7 +22,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="40dp"
             android:background="@android:color/white"
             android:paddingEnd="12dp"
             android:paddingStart="12dp">
@@ -36,6 +36,7 @@
                 android:lines="1"
                 android:text="@{ticker.currency}"
                 android:textAllCaps="true"
+                android:textColor="@color/gray5"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tv_last"
@@ -55,7 +56,8 @@
                 android:layout_marginStart="8dp"
                 android:gravity="end"
                 android:lines="1"
-                android:textSize="18sp"
+                android:textColor="@color/gray5"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tv_volume"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -67,19 +69,39 @@
             <TextView
                 android:id="@+id/tv_volume"
                 autoSizeText="@{true}"
+                tradeDiff="@{ticker}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:lines="1"
+                android:textColor="@color/gray5"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tv_diff"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintHorizontal_weight="2"
+                app:layout_constraintStart_toEndOf="@+id/tv_last"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="-10.99%" />
+
+            <TextView
+                android:id="@+id/tv_diff"
+                autoSizeText="@{true}"
                 tradeAmount="@{ticker}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="end"
                 android:lines="1"
-                android:textSize="18sp"
+                android:textColor="@color/gray5"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintHorizontal_weight="2"
-                app:layout_constraintStart_toEndOf="@+id/tv_last"
+                app:layout_constraintStart_toEndOf="@+id/tv_volume"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="999,999백만" />
+
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 </layout>

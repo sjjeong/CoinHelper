@@ -1,6 +1,7 @@
 package com.googry.coinhelper.ext
 
 import android.databinding.BindingAdapter
+import android.support.v4.content.res.ResourcesCompat
 import android.support.v4.widget.TextViewCompat
 import android.widget.TextView
 import com.googry.coinhelper.R
@@ -93,6 +94,24 @@ fun TextView.setLast(ticker: Ticker) {
         intFormat.format(ticker.last)
     } else {
         doubleFormat.format(ticker.last)
+    }
+}
+
+@BindingAdapter(value = ["tradeDiff"])
+fun TextView.setTradeDiff(ticker: Ticker) {
+    val diff = (ticker.last - ticker.first) / ticker.first * 100
+    text = String.format("%.2f%%", diff)
+    when {
+        diff > 0 -> {
+            setTextColor(ResourcesCompat.getColor(resources, R.color.diff_up, null))
+        }
+        diff < 0 -> {
+            setTextColor(ResourcesCompat.getColor(resources, R.color.diff_down, null))
+        }
+        else -> {
+            setTextColor(ResourcesCompat.getColor(resources, R.color.gray5, null))
+
+        }
     }
 }
 

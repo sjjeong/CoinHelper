@@ -30,6 +30,8 @@ buildscript {
         koinVersion = '0.9.3'
 
         pagerIndicatorVersion = '1.0.1@aar'
+
+        slideUpPannelVersion = '3.4.0'
     }
     repositories {
         google()
