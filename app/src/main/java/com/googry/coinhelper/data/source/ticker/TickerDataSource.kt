@@ -7,4 +7,7 @@ interface TickerDataSource {
     fun getAllTicker(baseCurrency: String?,
                      success: (tickers: List<Ticker>) -> Unit,
                      failed: (errorCode: String) -> Unit): Disposable
+
+    fun finish()
+
 }

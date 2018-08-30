@@ -10,9 +10,9 @@ import com.googry.coinhelper.base.ui.BaseViewHolder
 import com.googry.coinhelper.data.model.Ticker
 import com.googry.coinhelper.databinding.CoinListFragmentBinding
 import com.googry.coinhelper.databinding.CoinListItemBinding
+import com.googry.coinhelper.ext.logE
 import com.googry.coinhelper.viewmodel.CoinListViewModel
 import com.googry.coinhelper.viewmodel.CoinSortViewModel
-import io.reactivex.subjects.BehaviorSubject
 import org.koin.android.architecture.ext.sharedViewModel
 import org.koin.android.architecture.ext.viewModel
 
@@ -62,7 +62,18 @@ class CoinListFragment
                 }
             }
         }
-        compositeDisposable.add(coinListViewModel.getAllTickers())
 
     }
+
+    override fun onResume() {
+        compositeDisposable.add(coinListViewModel.getAllTickers())
+        super.onResume()
+    }
+
+    override fun onPause() {
+        compositeDisposable.clear()
+        coinListViewModel.finish()
+        super.onPause()
+    }
+
 }

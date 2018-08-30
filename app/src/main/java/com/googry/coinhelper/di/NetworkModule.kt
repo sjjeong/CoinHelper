@@ -1,9 +1,7 @@
 package com.googry.coinhelper.di
 
 import com.googry.coinhelper.BuildConfig
-import com.googry.coinhelper.network.api.BithumbApi
-import com.googry.coinhelper.network.api.CoinoneApi
-import com.googry.coinhelper.network.api.UpbitApi
+import com.googry.coinhelper.network.api.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module.applicationContext
@@ -60,5 +58,23 @@ val networkModule = applicationContext {
                 .addConverterFactory(get())
                 .build()
                 .create(UpbitApi::class.java)
+    }
+    bean {
+        Retrofit.Builder()
+                .baseUrl(BuildConfig.GopaxRestUrl)
+                .client(get())
+                .addCallAdapterFactory(get())
+                .addConverterFactory(get())
+                .build()
+                .create(GopaxApi::class.java)
+    }
+    bean {
+        Retrofit.Builder()
+                .baseUrl(BuildConfig.BinanceRestUrl)
+                .client(get())
+                .addCallAdapterFactory(get())
+                .addConverterFactory(get())
+                .build()
+                .create(BinanceApi::class.java)
     }
 }

@@ -1,9 +1,7 @@
 package com.googry.coinhelper.ui.home
 
-import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.app.FragmentPagerAdapter
-import android.support.v4.widget.DrawerLayout
+import android.support.v4.app.FragmentStatePagerAdapter
 import android.view.View
 import android.widget.Toast
 import com.googry.coinhelper.R
@@ -66,6 +64,13 @@ class HomeActivity
             suplRoot.setFadeOnClickListener {
                 suplRoot.panelState = SlidingUpPanelLayout.PanelState.HIDDEN
             }
+            vpContent.addOnAdapterChangeListener { viewPager, oldAdapter, _ ->
+                (oldAdapter as? FragmentStatePagerAdapter)?.let {
+                    for (i in 0 until it.count) {
+                        it.destroyItem(viewPager, i, it.getItem(i))
+                    }
+                }
+            }
 
         }
 
@@ -92,9 +97,8 @@ class HomeActivity
         binding.run {
             suplRoot.panelState = SlidingUpPanelLayout.PanelState.HIDDEN
             tvExchange.text = getString(R.string.for_exchange_fmt, getString(exchangeSelectViewModel.getSelectedExchange().nameRes))
-            vpContent.adapter = object : FragmentPagerAdapter(supportFragmentManager) {
-
-                val pageTitles = exchangeSelectViewModel.getBaseCurrencies()
+            val pageTitles = exchangeSelectViewModel.getBaseCurrencies()
+            vpContent.adapter = object : FragmentStatePagerAdapter(supportFragmentManager) {
 
                 override fun getItem(position: Int) = CoinListFragment.newInstance(pageTitles[position])
 
@@ -102,6 +106,7 @@ class HomeActivity
 
                 override fun getPageTitle(position: Int) = pageTitles[position]
             }
+            vpContent.offscreenPageLimit = pageTitles.size - 1
         }
     }
 

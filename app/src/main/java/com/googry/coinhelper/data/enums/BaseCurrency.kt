@@ -4,5 +4,6 @@ enum class BaseCurrency {
     KRW,
     BTC,
     ETH,
-    USDT
+    USDT,
+    BNB
 }

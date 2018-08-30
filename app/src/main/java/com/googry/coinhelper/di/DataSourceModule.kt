@@ -3,13 +3,14 @@ package com.googry.coinhelper.di
 import com.googry.coinhelper.data.source.MainExchangeDataSource
 import com.googry.coinhelper.data.source.MainExchangeRepository
 import com.googry.coinhelper.data.source.ticker.*
-import com.googry.coinhelper.network.api.BithumbApi
 import org.koin.dsl.module.applicationContext
 
 const val COMMON_TICKER_DATA_SOURCE = "COMMON_TICKER_DATA_SOURCE"
 const val COINONE_TICKER_DATA_SOURCE = "COINONE_TICKER_DATA_SOURCE"
 const val UPBIT_TICKER_DATA_SOURCE = "UPBIT_TICKER_DATA_SOURCE"
 const val BITHUMB_TICKER_DATA_SOURCE = "BITHUMB_TICKER_DATA_SOURCE"
+const val GOPAX_TICKER_DATA_SOURCE = "GOPAX_TICKER_DATA_SOURCE"
+const val BINANCE_TICKER_DATA_SOURCE = "BINANCE_TICKER_DATA_SOURCE"
 
 val dataSourceModule = applicationContext {
     bean(COMMON_TICKER_DATA_SOURCE) {
@@ -24,10 +25,18 @@ val dataSourceModule = applicationContext {
     bean(BITHUMB_TICKER_DATA_SOURCE) {
         BithumbTickerRepository(get()) as TickerDataSource
     }
+    bean(GOPAX_TICKER_DATA_SOURCE) {
+        GopaxTickerRepository(get()) as TickerDataSource
+    }
+    bean(BINANCE_TICKER_DATA_SOURCE) {
+        BinanceTickerRepository(get()) as TickerDataSource
+    }
     bean {
         MainExchangeRepository(get(),
                 get(COINONE_TICKER_DATA_SOURCE),
                 get(UPBIT_TICKER_DATA_SOURCE),
-                get(BITHUMB_TICKER_DATA_SOURCE)) as MainExchangeDataSource
+                get(BITHUMB_TICKER_DATA_SOURCE),
+                get(GOPAX_TICKER_DATA_SOURCE),
+                get(BINANCE_TICKER_DATA_SOURCE)) as MainExchangeDataSource
     }
 }

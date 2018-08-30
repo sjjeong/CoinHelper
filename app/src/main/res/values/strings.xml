@@ -25,5 +25,7 @@
     <string name="please_select_main_exchange">주 거래소를 선택해 주세요.</string>
     <string name="select_exchange">거래소 선택</string>
     <string name="for_exchange_fmt">for %1$s</string>
+    <string name="gopax">고팍스</string>
+    <string name="binance">바이낸스</string>
 
 </resources>

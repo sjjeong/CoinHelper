@@ -51,4 +51,8 @@ class BithumbTickerRepository(private val bithumbApi: BithumbApi)
 
                 }
     }
+
+    override fun finish() {
+
+    }
 }

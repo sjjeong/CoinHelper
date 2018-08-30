@@ -5,7 +5,10 @@ import com.googry.coinhelper.data.model.Ticker
 import com.googry.coinhelper.ext.fromJson
 import com.googry.coinhelper.ext.networkCommunication
 import com.googry.coinhelper.network.api.CoinoneApi
-import com.googry.coinhelper.network.model.*
+import com.googry.coinhelper.network.model.COINONE_TICKER_FIELD_ERROR_CODE
+import com.googry.coinhelper.network.model.COINONE_TICKER_FIELD_RESULT
+import com.googry.coinhelper.network.model.COINONE_TICKER_FIELD_TIMESTAMP
+import com.googry.coinhelper.network.model.CoinoneTicker
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -49,5 +52,9 @@ class CoinoneTickerRepository(private val coinoneApi: CoinoneApi)
                                 failed.invoke("")
                             }
                 }
+    }
+
+    override fun finish() {
+
     }
 }

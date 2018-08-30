@@ -13,5 +13,10 @@ class TickerRepository(private val mainExchangeDataSource: MainExchangeDataSourc
                     .getTickerDataSource()
                     .getAllTicker(baseCurrency, success, failed)
 
+    override fun finish() {
+        mainExchangeDataSource
+                .getTickerDataSource()
+                .finish()
+    }
 
 }

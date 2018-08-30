@@ -3,11 +3,15 @@ package com.googry.coinhelper.viewmodel
 import android.arch.lifecycle.MutableLiveData
 import com.googry.coinhelper.base.ui.BaseViewModel
 import com.googry.coinhelper.data.model.Ticker
+import com.googry.coinhelper.data.source.MainExchangeDataSource
 import com.googry.coinhelper.data.source.ticker.TickerDataSource
+import com.googry.coinhelper.ext.logE
 import io.reactivex.disposables.Disposable
 
-class CoinListViewModel(private val tickerDataSource: TickerDataSource)
+class CoinListViewModel(private val mainExchangeDataSource: MainExchangeDataSource)
     : BaseViewModel() {
+
+    private val exchangeTickerDataSource = mainExchangeDataSource.getTickerDataSource()
 
     var coinSortViewModel: CoinSortViewModel? = null
         set(value) {
@@ -24,11 +28,15 @@ class CoinListViewModel(private val tickerDataSource: TickerDataSource)
     var baseCurrency: String? = null
 
     fun getAllTickers(): Disposable =
-            tickerDataSource.getAllTicker(baseCurrency, success = {
+            exchangeTickerDataSource.getAllTicker(baseCurrency, success = {
                 sortTickers(it)
             }, failed = {
 
             })
+
+    fun finish(){
+        exchangeTickerDataSource.finish()
+    }
 
     private fun sortTickers(tickers: List<Ticker>) {
         liveTickers.postValue(
