@@ -29,9 +29,9 @@ data class BinanceTickerResponse(
 ) : ITicker {
     override fun toTicker() = Ticker(
             last = lastPrice,
-            first = openPrice,
             high = highPrice,
             low = lowPrice,
+            diff = priceChangePercent,
             volume = quoteVolume
     )
 }

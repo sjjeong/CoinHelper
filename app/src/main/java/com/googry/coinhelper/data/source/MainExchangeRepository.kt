@@ -9,7 +9,8 @@ class MainExchangeRepository(private val prefUtils: PrefUtils,
                              private val upbitDataSource: TickerDataSource,
                              private val bithumbDataSource: TickerDataSource,
                              private val gopaxDataSource: TickerDataSource,
-                             private val binanceDataSource: TickerDataSource)
+                             private val binanceDataSource: TickerDataSource,
+                             private val bitfinexDataSource: TickerDataSource)
     : MainExchangeDataSource {
 
     override fun saveMainExchange(exchange: Exchange) {
@@ -25,6 +26,7 @@ class MainExchangeRepository(private val prefUtils: PrefUtils,
                 Exchange.BITHUMB -> bithumbDataSource
                 Exchange.GOPAX -> gopaxDataSource
                 Exchange.BINANCE -> binanceDataSource
+                Exchange.BITFINEX -> bitfinexDataSource
                 else -> error("Unknown Exchange")
 
             }

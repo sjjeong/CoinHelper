@@ -77,4 +77,13 @@ val networkModule = applicationContext {
                 .build()
                 .create(BinanceApi::class.java)
     }
+    bean {
+        Retrofit.Builder()
+                .baseUrl(BuildConfig.BitfinexRestUrl)
+                .client(get())
+                .addCallAdapterFactory(get())
+                .addConverterFactory(get())
+                .build()
+                .create(BitfinexApi::class.java)
+    }
 }

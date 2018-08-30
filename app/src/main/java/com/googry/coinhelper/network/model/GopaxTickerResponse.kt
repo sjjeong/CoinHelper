@@ -13,13 +13,17 @@ data class GopaxTickerResponse(
         @SerializedName("volume") val volume: Double,
         @SerializedName("time") val time: String
 ) : ITicker {
-    override fun toTicker() = Ticker(
-            currency = name.split("-")[0],
-            baseCurrency = name.split("-")[1],
-            last = close,
-            high = high,
-            low = low,
-            first = open,
-            volume = volume * close
-    )
+    override fun toTicker():Ticker {
+        val names = name.split("-")
+        val diff = (close - open) / open
+        return Ticker(
+                currency = names[0],
+                baseCurrency = names[1],
+                last = close,
+                high = high,
+                low = low,
+                diff = diff,
+                volume = volume * close
+        )
+    }
 }

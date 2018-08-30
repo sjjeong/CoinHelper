@@ -21,14 +21,15 @@ data class CoinoneTicker(
         @SerializedName("yesterday_high") val yesterdayHigh: String,
         @SerializedName("first") val first: Double
 ) : ITicker {
-    override fun toTicker() =
-            Ticker(currency = currency,
-                    baseCurrency = "KRW",
-                    last = last,
-                    high = high,
-                    low = low,
-                    first = first,
-                    volume = volume * last)
-
+    override fun toTicker(): Ticker {
+        val diff = (last - first) / first
+        return Ticker(currency = currency,
+                baseCurrency = "KRW",
+                last = last,
+                high = high,
+                low = low,
+                diff = diff,
+                volume = volume * last)
+    }
 }
 

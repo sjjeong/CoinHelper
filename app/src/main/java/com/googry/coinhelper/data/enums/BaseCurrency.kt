@@ -5,5 +5,10 @@ enum class BaseCurrency {
     BTC,
     ETH,
     USDT,
-    BNB
+    BNB,
+    USD,
+    EUR,
+    GBP,
+    JPY,
+    EOS
 }

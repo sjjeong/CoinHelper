@@ -21,6 +21,7 @@ android {
         buildConfigField "String", "UpbitRestUrl", "\"https://api.upbit.com/v1/\""
         buildConfigField "String", "GopaxRestUrl", "\"https://api.gopax.co.kr/\""
         buildConfigField "String", "BinanceRestUrl", "\"https://api.binance.com/\""
+        buildConfigField "String", "BitfinexRestUrl", "\"https://api.bitfinex.com/\""
 
     }
     buildTypes {

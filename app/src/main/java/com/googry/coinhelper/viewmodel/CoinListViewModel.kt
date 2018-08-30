@@ -49,7 +49,7 @@ class CoinListViewModel(private val mainExchangeDataSource: MainExchangeDataSour
                             it.last
                         }
                         "diff" -> tickers.sortedByDescending {
-                            (it.last - it.first) / it.first
+                            it.diff
                         }
                         else -> tickers.sortedByDescending {
                             it.volume
@@ -64,7 +64,7 @@ class CoinListViewModel(private val mainExchangeDataSource: MainExchangeDataSour
                             it.last
                         }
                         "diff" -> tickers.sortedBy {
-                            (it.last - it.first) / it.first
+                            it.diff
                         }
                         else -> tickers.sortedBy {
                             it.volume
