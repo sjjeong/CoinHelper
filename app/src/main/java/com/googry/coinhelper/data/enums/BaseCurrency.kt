@@ -10,5 +10,6 @@ enum class BaseCurrency {
     EUR,
     GBP,
     JPY,
-    EOS
+    EOS,
+    HT
 }

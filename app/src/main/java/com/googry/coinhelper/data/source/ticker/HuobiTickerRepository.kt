@@ -4,6 +4,8 @@ import com.googry.coinhelper.data.model.Ticker
 import com.googry.coinhelper.ext.logE
 import com.googry.coinhelper.ext.networkCommunication
 import com.googry.coinhelper.network.api.GopaxApi
+import com.googry.coinhelper.network.api.HuobiApi
+import com.googry.coinhelper.network.model.HuobiTickerResponse
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -11,7 +13,7 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import java.util.concurrent.TimeUnit
 
-class GopaxTickerRepository(private val gopaxApi: GopaxApi)
+class HuobiTickerRepository(private val huobiApi: HuobiApi)
     : TickerDataSource {
 
     companion object {
@@ -19,7 +21,7 @@ class GopaxTickerRepository(private val gopaxApi: GopaxApi)
 
         private val compositeDisposable = CompositeDisposable()
 
-        private var tickerBehaviorSubject: BehaviorSubject<List<Ticker>>? = null
+        private var tickerBehaviorSubject: BehaviorSubject<List<HuobiTickerResponse.Data>>? = null
 
         private var subscribeCnt = 0
     }
@@ -30,18 +32,14 @@ class GopaxTickerRepository(private val gopaxApi: GopaxApi)
                               failed: (errorCode: String) -> Unit): Disposable {
         if (tickerBehaviorSubject == null && subscribeCnt == 0) {
             logE("create")
-            tickerBehaviorSubject = BehaviorSubject.create<List<Ticker>>()
+            tickerBehaviorSubject = BehaviorSubject.create<List<HuobiTickerResponse.Data>>()
             compositeDisposable.add(Observable.interval(0, REQUEST_TIME_IN_MILLIS, TimeUnit.MILLISECONDS)
                     .observeOn(Schedulers.newThread())
                     .subscribe {
-                        gopaxApi.getTickers()
+                        huobiApi.getAllTickers()
                                 .networkCommunication()
-                                .map {
-                                    it.map {
-                                        it.toTicker()
-                                    }
-                                }.subscribe({
-                                    tickerBehaviorSubject?.onNext(it)
+                                .subscribe({
+                                    tickerBehaviorSubject?.onNext(it.data)
                                 }) {
                                     tickerBehaviorSubject?.onError(it)
                                 }
@@ -50,7 +48,12 @@ class GopaxTickerRepository(private val gopaxApi: GopaxApi)
         subscribeCnt += 1
         return tickerBehaviorSubject!!.map {
             it.filter {
-                it.baseCurrency == baseCurrency
+                it.symbol.toUpperCase().endsWith(baseCurrency!!)
+            }.map {
+                it.toTicker().apply {
+                    this.currency = it.symbol.toUpperCase().substring(0, it.symbol.length - baseCurrency?.length!!)
+                    this.baseCurrency = baseCurrency
+                }
             }
         }.subscribe({
             success.invoke(it)

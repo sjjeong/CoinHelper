@@ -22,7 +22,7 @@ data class CoinoneTicker(
         @SerializedName("first") val first: Double
 ) : ITicker {
     override fun toTicker(): Ticker {
-        val diff = (last - first) / first
+        val diff = (last - first) / first * 100
         return Ticker(currency = currency,
                 baseCurrency = "KRW",
                 last = last,

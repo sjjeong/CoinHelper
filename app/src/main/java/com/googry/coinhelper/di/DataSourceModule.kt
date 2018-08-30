@@ -12,6 +12,7 @@ const val BITHUMB_TICKER_DATA_SOURCE = "BITHUMB_TICKER_DATA_SOURCE"
 const val GOPAX_TICKER_DATA_SOURCE = "GOPAX_TICKER_DATA_SOURCE"
 const val BINANCE_TICKER_DATA_SOURCE = "BINANCE_TICKER_DATA_SOURCE"
 const val BITFINEX_TICKER_DATA_SOURCE = "BITFINEX_TICKER_DATA_SOURCE"
+const val HUOBI_TICKER_DATA_SOURCE = "HUOBI_TICKER_DATA_SOURCE"
 
 val dataSourceModule = applicationContext {
     bean(COMMON_TICKER_DATA_SOURCE) {
@@ -35,6 +36,9 @@ val dataSourceModule = applicationContext {
     bean(BITFINEX_TICKER_DATA_SOURCE) {
         BitfinexTickerRepository(get()) as TickerDataSource
     }
+    bean(HUOBI_TICKER_DATA_SOURCE) {
+        HuobiTickerRepository(get()) as TickerDataSource
+    }
     bean {
         MainExchangeRepository(get(),
                 get(COINONE_TICKER_DATA_SOURCE),
@@ -42,6 +46,7 @@ val dataSourceModule = applicationContext {
                 get(BITHUMB_TICKER_DATA_SOURCE),
                 get(GOPAX_TICKER_DATA_SOURCE),
                 get(BINANCE_TICKER_DATA_SOURCE),
-                get(BITFINEX_TICKER_DATA_SOURCE)) as MainExchangeDataSource
+                get(BITFINEX_TICKER_DATA_SOURCE),
+                get(HUOBI_TICKER_DATA_SOURCE)) as MainExchangeDataSource
     }
 }

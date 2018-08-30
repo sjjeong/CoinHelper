@@ -22,6 +22,7 @@ android {
         buildConfigField "String", "GopaxRestUrl", "\"https://api.gopax.co.kr/\""
         buildConfigField "String", "BinanceRestUrl", "\"https://api.binance.com/\""
         buildConfigField "String", "BitfinexRestUrl", "\"https://api.bitfinex.com/\""
+        buildConfigField "String", "HuobiRestUrl", "\"https://api.huobi.pro/\""
 
     }
     buildTypes {

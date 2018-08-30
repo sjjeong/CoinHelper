@@ -28,5 +28,6 @@
     <string name="gopax">고팍스</string>
     <string name="binance">바이낸스</string>
     <string name="bitfinex">비트파이넥스</string>
+    <string name="huobi">후오비</string>
 
 </resources>

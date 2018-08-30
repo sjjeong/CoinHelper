@@ -15,7 +15,7 @@ data class GopaxTickerResponse(
 ) : ITicker {
     override fun toTicker():Ticker {
         val names = name.split("-")
-        val diff = (close - open) / open
+        val diff = (close - open) / open * 100
         return Ticker(
                 currency = names[0],
                 baseCurrency = names[1],

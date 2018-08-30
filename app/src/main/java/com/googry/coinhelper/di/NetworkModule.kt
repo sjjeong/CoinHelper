@@ -86,4 +86,13 @@ val networkModule = applicationContext {
                 .build()
                 .create(BitfinexApi::class.java)
     }
+    bean {
+        Retrofit.Builder()
+                .baseUrl(BuildConfig.HuobiRestUrl)
+                .client(get())
+                .addCallAdapterFactory(get())
+                .addConverterFactory(get())
+                .build()
+                .create(HuobiApi::class.java)
+    }
 }
