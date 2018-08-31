@@ -12,8 +12,8 @@ android {
         applicationId "com.googry.coinhelper"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
-        versionName "0.0.2"
+        versionCode 3
+        versionName "0.0.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "CoinoneRestUrl", "\"https://api.coinone.co.kr/\""
@@ -23,6 +23,7 @@ android {
         buildConfigField "String", "BinanceRestUrl", "\"https://api.binance.com/\""
         buildConfigField "String", "BitfinexRestUrl", "\"https://api.bitfinex.com/\""
         buildConfigField "String", "HuobiRestUrl", "\"https://api.huobi.pro/\""
+        buildConfigField "String", "BitforexRestUrl", "\"https://www.bitforex.com/\""
 
     }
     buildTypes {
