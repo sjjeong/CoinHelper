@@ -4,12 +4,14 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="coinListVM"
             type="com.googry.coinhelper.viewmodel.CoinListViewModel" />
     </data>
 
-    <LinearLayout style="@style/FragmentRootViewGroup">
+    <FrameLayout style="@style/FragmentRootViewGroup">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_content"
@@ -21,5 +23,11 @@
             android:paddingTop="2dp"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
-    </LinearLayout>
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{coinListVM.liveTickers.size() == 0 ? View.VISIBLE : View.GONE}"
+            android:layout_gravity="center" />
+
+    </FrameLayout>
 </layout>

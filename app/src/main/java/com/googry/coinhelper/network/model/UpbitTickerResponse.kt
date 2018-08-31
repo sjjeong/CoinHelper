@@ -39,7 +39,7 @@ data class UpbitTicker(
                     last = tradePrice,
                     high = highPrice,
                     low = lowPrice,
-                    diff = prevClosingPrice,
+                    diff = changeRate * if (change == "RISE") 100 else -100,
                     volume = accTradePrice24h
             )
 }
