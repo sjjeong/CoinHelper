@@ -66,8 +66,14 @@ class HomeActivity
             }
             vpContent.addOnAdapterChangeListener { viewPager, oldAdapter, _ ->
                 (oldAdapter as? FragmentStatePagerAdapter)?.let {
-                    for (i in 0 until it.count) {
-                        it.destroyItem(viewPager, i, it.getItem(i))
+                    val position = vpContent.currentItem
+                    it.destroyItem(viewPager, position, it.getItem(position))
+                    if (position > 0) {
+                        it.destroyItem(viewPager, position - 1, it.getItem(position - 1))
+                    }
+                    val endPosition = it.count - 2
+                    if (position < endPosition) {
+                        it.destroyItem(viewPager, position + 1, it.getItem(position + 1))
                     }
                 }
             }
@@ -106,7 +112,6 @@ class HomeActivity
 
                 override fun getPageTitle(position: Int) = pageTitles[position]
             }
-            vpContent.offscreenPageLimit = pageTitles.size - 1
         }
     }
 
