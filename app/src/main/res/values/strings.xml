@@ -31,5 +31,7 @@
     <string name="huobi">후오비</string>
     <string name="bitforex">비트포렉스</string>
     <string name="bitz">비트지</string>
+    <string name="coinex">코인엑스</string>
+    <string name="hitbit">힛빗</string>
 
 </resources>

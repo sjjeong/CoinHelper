@@ -4,8 +4,6 @@ import android.arch.lifecycle.MutableLiveData
 import com.googry.coinhelper.base.ui.BaseViewModel
 import com.googry.coinhelper.data.model.Ticker
 import com.googry.coinhelper.data.source.MainExchangeDataSource
-import com.googry.coinhelper.data.source.ticker.TickerDataSource
-import com.googry.coinhelper.ext.logE
 import io.reactivex.disposables.Disposable
 
 class CoinListViewModel(private val mainExchangeDataSource: MainExchangeDataSource)
@@ -34,7 +32,7 @@ class CoinListViewModel(private val mainExchangeDataSource: MainExchangeDataSour
 
             })
 
-    fun finish(){
+    fun finish() {
         exchangeTickerDataSource.finish()
     }
 

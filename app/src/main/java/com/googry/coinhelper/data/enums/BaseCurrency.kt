@@ -13,5 +13,9 @@ enum class BaseCurrency {
     EOS,
     HT,
     DKKT,
-    BZ
+    BZ,
+    BCH,
+    EURS,
+    DAI,
+    TUSD
 }

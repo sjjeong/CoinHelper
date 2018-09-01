@@ -13,7 +13,7 @@ data class GopaxTickerResponse(
         @SerializedName("volume") val volume: Double,
         @SerializedName("time") val time: String
 ) : ITicker {
-    override fun toTicker():Ticker {
+    override fun toTicker(): Ticker {
         val names = name.split("-")
         val diff = (close - open) / open * 100
         return Ticker(

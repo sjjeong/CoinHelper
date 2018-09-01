@@ -3,8 +3,8 @@ package com.googry.coinhelper.data.source.ticker
 import com.googry.coinhelper.data.model.Ticker
 import com.googry.coinhelper.ext.logE
 import com.googry.coinhelper.ext.networkCommunication
-import com.googry.coinhelper.network.api.HuobiApi
-import com.googry.coinhelper.network.model.HuobiTickerResponse
+import com.googry.coinhelper.network.api.HitbitApi
+import com.googry.coinhelper.network.model.HitbitTickerResponse
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -12,7 +12,7 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import java.util.concurrent.TimeUnit
 
-class HuobiTickerRepository(private val huobiApi: HuobiApi)
+class HitbitTickerRepository(private val hitbitApi: HitbitApi)
     : TickerDataSource {
 
     companion object {
@@ -20,7 +20,7 @@ class HuobiTickerRepository(private val huobiApi: HuobiApi)
 
         private val compositeDisposable = CompositeDisposable()
 
-        private var tickerBehaviorSubject: BehaviorSubject<List<HuobiTickerResponse.Data>>? = null
+        private var tickerBehaviorSubject: BehaviorSubject<Map<String, HitbitTickerResponse>>? = null
 
         private var subscribeCnt = 0
     }
@@ -31,34 +31,36 @@ class HuobiTickerRepository(private val huobiApi: HuobiApi)
                               failed: (errorCode: String) -> Unit): Disposable {
         if (tickerBehaviorSubject == null && subscribeCnt == 0) {
             logE("create")
-            tickerBehaviorSubject = BehaviorSubject.create<List<HuobiTickerResponse.Data>>()
+            tickerBehaviorSubject = BehaviorSubject.create<Map<String, HitbitTickerResponse>>()
             compositeDisposable.add(Observable.interval(0, REQUEST_TIME_IN_MILLIS, TimeUnit.MILLISECONDS)
                     .observeOn(Schedulers.newThread())
                     .subscribe {
-                        huobiApi.getAllTickers()
+                        hitbitApi.getAllTickers()
                                 .networkCommunication()
                                 .subscribe({
-                                    tickerBehaviorSubject?.onNext(it.data)
+                                    tickerBehaviorSubject?.onNext(it)
                                 }) {
                                     tickerBehaviorSubject?.onError(it)
                                 }
                     })
         }
         subscribeCnt += 1
-        return tickerBehaviorSubject!!.map {
-            it.filter {
-                it.symbol.toUpperCase().endsWith(baseCurrency!!)
-            }.map {
-                it.toTicker().apply {
-                    this.currency = it.symbol.toUpperCase().substring(0, it.symbol.length - baseCurrency?.length!!)
-                    this.baseCurrency = baseCurrency
+        return tickerBehaviorSubject!!
+                .map {
+                    it.filter {
+                        it.key.endsWith(baseCurrency!!)
+                    }.map {
+                        it.value.toTicker().apply {
+                            this.currency = it.key.substring(0, it.key.length - baseCurrency?.length!!)
+                            this.baseCurrency = baseCurrency
+                        }
+                    }.toList()
                 }
-            }
-        }.subscribe({
-            success.invoke(it)
-        }) {
-            failed.invoke("")
-        }
+                .subscribe({
+                    success.invoke(it)
+                }) {
+                    failed.invoke("")
+                }
     }
 
     override fun finish() {
@@ -69,4 +71,5 @@ class HuobiTickerRepository(private val huobiApi: HuobiApi)
             tickerBehaviorSubject = null
         }
     }
+
 }

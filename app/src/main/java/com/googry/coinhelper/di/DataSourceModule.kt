@@ -15,6 +15,8 @@ const val BITFINEX_TICKER_DATA_SOURCE = "BITFINEX_TICKER_DATA_SOURCE"
 const val HUOBI_TICKER_DATA_SOURCE = "HUOBI_TICKER_DATA_SOURCE"
 const val BITFOREX_TICKER_DATA_SOURCE = "BITFOREX_TICKER_DATA_SOURCE"
 const val BITZ_TICKER_DATA_SOURCE = "BITZ_TICKER_DATA_SOURCE"
+const val COINEX_TICKER_DATA_SOURCE = "COINEX_TICKER_DATA_SOURCE"
+const val HITBIT_TICKER_DATA_SOURCE = "HITBIT_TICKER_DATA_SOURCE"
 
 val dataSourceModule = applicationContext {
     bean(COMMON_TICKER_DATA_SOURCE) {
@@ -46,17 +48,25 @@ val dataSourceModule = applicationContext {
     }
     bean(BITZ_TICKER_DATA_SOURCE) {
         BitzTickerRepository(get()) as TickerDataSource
-    }
-    bean {
-        MainExchangeRepository(get(),
-                get(COINONE_TICKER_DATA_SOURCE),
-                get(UPBIT_TICKER_DATA_SOURCE),
-                get(BITHUMB_TICKER_DATA_SOURCE),
-                get(GOPAX_TICKER_DATA_SOURCE),
-                get(BINANCE_TICKER_DATA_SOURCE),
-                get(BITFINEX_TICKER_DATA_SOURCE),
-                get(HUOBI_TICKER_DATA_SOURCE),
-                get(BITFOREX_TICKER_DATA_SOURCE),
-                get(BITZ_TICKER_DATA_SOURCE)) as MainExchangeDataSource
+        bean(COINEX_TICKER_DATA_SOURCE) {
+            CoinexTickerRepository(get()) as TickerDataSource
+        }
+        bean(HITBIT_TICKER_DATA_SOURCE) {
+            HitbitTickerRepository(get()) as TickerDataSource
+        }
+        bean {
+            MainExchangeRepository(get(),
+                    get(COINONE_TICKER_DATA_SOURCE),
+                    get(UPBIT_TICKER_DATA_SOURCE),
+                    get(BITHUMB_TICKER_DATA_SOURCE),
+                    get(GOPAX_TICKER_DATA_SOURCE),
+                    get(BINANCE_TICKER_DATA_SOURCE),
+                    get(BITFINEX_TICKER_DATA_SOURCE),
+                    get(HUOBI_TICKER_DATA_SOURCE),
+                    get(BITFOREX_TICKER_DATA_SOURCE),
+                    get(BITZ_TICKER_DATA_SOURCE),
+                    get(COINEX_TICKER_DATA_SOURCE),
+                    get(HITBIT_TICKER_DATA_SOURCE)) as MainExchangeDataSource
+        }
     }
 }
