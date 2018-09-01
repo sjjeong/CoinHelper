@@ -104,4 +104,13 @@ val networkModule = applicationContext {
                 .build()
                 .create(CoinexApi::class.java)
     }
+    bean {
+        Retrofit.Builder()
+                .baseUrl(BuildConfig.HitbtcRestUrl)
+                .client(get())
+                .addCallAdapterFactory(get())
+                .addConverterFactory(get())
+                .build()
+                .create(HitbitApi::class.java)
+    }
 }
