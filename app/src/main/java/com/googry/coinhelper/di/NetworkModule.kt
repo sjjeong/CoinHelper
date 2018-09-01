@@ -104,4 +104,13 @@ val networkModule = applicationContext {
                 .build()
                 .create(BitforexApi::class.java)
     }
+    bean {
+        Retrofit.Builder()
+                .baseUrl(BuildConfig.BitzRestUrl)
+                .client(get())
+                .addCallAdapterFactory(get())
+                .addConverterFactory(get())
+                .build()
+                .create(BitzApi::class.java)
+    }
 }
