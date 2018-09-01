@@ -48,25 +48,25 @@ val dataSourceModule = applicationContext {
     }
     bean(BITZ_TICKER_DATA_SOURCE) {
         BitzTickerRepository(get()) as TickerDataSource
-        bean(COINEX_TICKER_DATA_SOURCE) {
-            CoinexTickerRepository(get()) as TickerDataSource
-        }
-        bean(HITBIT_TICKER_DATA_SOURCE) {
-            HitbitTickerRepository(get()) as TickerDataSource
-        }
-        bean {
-            MainExchangeRepository(get(),
-                    get(COINONE_TICKER_DATA_SOURCE),
-                    get(UPBIT_TICKER_DATA_SOURCE),
-                    get(BITHUMB_TICKER_DATA_SOURCE),
-                    get(GOPAX_TICKER_DATA_SOURCE),
-                    get(BINANCE_TICKER_DATA_SOURCE),
-                    get(BITFINEX_TICKER_DATA_SOURCE),
-                    get(HUOBI_TICKER_DATA_SOURCE),
-                    get(BITFOREX_TICKER_DATA_SOURCE),
-                    get(BITZ_TICKER_DATA_SOURCE),
-                    get(COINEX_TICKER_DATA_SOURCE),
-                    get(HITBIT_TICKER_DATA_SOURCE)) as MainExchangeDataSource
-        }
+    }
+    bean(COINEX_TICKER_DATA_SOURCE) {
+        CoinexTickerRepository(get()) as TickerDataSource
+    }
+    bean(HITBIT_TICKER_DATA_SOURCE) {
+        HitbitTickerRepository(get()) as TickerDataSource
+    }
+    bean {
+        MainExchangeRepository(get(),
+                get(COINONE_TICKER_DATA_SOURCE),
+                get(UPBIT_TICKER_DATA_SOURCE),
+                get(BITHUMB_TICKER_DATA_SOURCE),
+                get(GOPAX_TICKER_DATA_SOURCE),
+                get(BINANCE_TICKER_DATA_SOURCE),
+                get(BITFINEX_TICKER_DATA_SOURCE),
+                get(HUOBI_TICKER_DATA_SOURCE),
+                get(BITFOREX_TICKER_DATA_SOURCE),
+                get(BITZ_TICKER_DATA_SOURCE),
+                get(COINEX_TICKER_DATA_SOURCE),
+                get(HITBIT_TICKER_DATA_SOURCE)) as MainExchangeDataSource
     }
 }
