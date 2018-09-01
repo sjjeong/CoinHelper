@@ -7,5 +7,5 @@ data class Ticker(var currency: String = "",
                   var low: Double,
 //                  var first: Double? = null,
                   var volume: Double,
-                  //diff는 %값 ex) 1.5%는 1.5로
+        //diff는 %값 ex) 1.5%는 1.5로
                   var diff: Double)
