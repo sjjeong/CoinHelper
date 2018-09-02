@@ -27,7 +27,7 @@ class LauncherActivity : AppCompatActivity() {
         } else {
             MobileAds.initialize(applicationContext, getString(R.string.admob_app_key))
             with(InterstitialAd(applicationContext)) {
-                adUnitId = getString(R.string.admob_start_interstitial)
+                adUnitId = getString(R.string.admob_start_interstitial_key)
                 loadAd(AdRequest.Builder().build())
                 adListener = object : AdListener() {
 

@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">코인헬퍼</string>
     <string name="admob_app_key">ca-app-pub-3455486566753347~2819068799</string>
-    <string name="admob_start_interstitial">ca-app-pub-3455486566753347/4239536643</string>
+    <string name="admob_start_interstitial_key">ca-app-pub-3455486566753347/4239536643</string>
+    <string name="admob_main_bottom_banner_key">ca-app-pub-3455486566753347/5783247637</string>
 
     <string name="coinone">코인원(Coinone)</string>
     <string name="upbit">업비트(Upbit)</string>

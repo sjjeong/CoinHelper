@@ -5,11 +5,13 @@ import android.support.v4.app.FragmentStatePagerAdapter
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.googry.coinhelper.BuildConfig
 import com.googry.coinhelper.R
 import com.googry.coinhelper.base.ui.BaseActivity
 import com.googry.coinhelper.base.ui.BaseRecyclerViewAdapter
 import com.googry.coinhelper.base.ui.BaseViewHolder
-import com.googry.coinhelper.data.enums.Exchange
 import com.googry.coinhelper.databinding.ExchangeSelectItemBinding
 import com.googry.coinhelper.databinding.HomeActivityBinding
 import com.googry.coinhelper.viewmodel.CoinSortViewModel
@@ -34,29 +36,6 @@ class HomeActivity
             view = this@HomeActivity
             coinSortVM = coinSortViewModel
             exchangeSelectVM = exchangeSelectViewModel
-//            dlRoot.run {
-//                setScrimColor(Color.TRANSPARENT)
-//                addDrawerListener(object : DrawerLayout.DrawerListener {
-//                    override fun onDrawerStateChanged(newState: Int) {
-//                    }
-//
-//                    override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
-//                        if (drawerView.id == R.id.fl_side_right) {
-//                            clRoot.translationX = -clRoot.width * slideOffset
-//                            flSideRight.scaleX = 1 - slideOffset / 5
-//                            flSideRight.scaleY = 1 - slideOffset / 5
-//
-//                            icArrowForward.rotation = slideOffset * 180
-//                        }
-//                    }
-//
-//                    override fun onDrawerClosed(drawerView: View) {
-//                    }
-//
-//                    override fun onDrawerOpened(drawerView: View) {
-//                    }
-//                })
-//            }
             icArrowForward.rotation = -90f
             tlContent.setupWithViewPager(vpContent)
             tvExchange.setOnClickListener {
@@ -115,7 +94,16 @@ class HomeActivity
                             }
                         }
             }
-
+            if (!BuildConfig.DEBUG) {
+                adViewBanner.adListener = object : AdListener() {
+                    override fun onAdLoaded() {
+                        super.onAdLoaded()
+                        adViewBanner.visibility = View.VISIBLE
+                    }
+                }
+                val adRequest = AdRequest.Builder().build()
+                adViewBanner.loadAd(adRequest)
+            }
         }
 
         refreshPage()
