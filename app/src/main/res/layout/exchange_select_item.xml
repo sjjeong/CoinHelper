@@ -15,7 +15,7 @@
 
         <variable
             name="exchange"
-            type="com.googry.coinhelper.data.enums.Exchange" />
+            type="String" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -32,7 +32,7 @@
             android:layout_marginBottom="8dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="@{exchange.nameRes}"
+            android:text="@{exchange}"
             android:textColor="@android:color/black"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -1,5 +1,6 @@
 package com.googry.coinhelper.data.enums
 
+import android.content.Context
 import com.googry.coinhelper.R
 
 enum class Exchange(val nameRes: Int, val baseCurrencies: List<String>) {
@@ -13,4 +14,14 @@ enum class Exchange(val nameRes: Int, val baseCurrencies: List<String>) {
     COINEX(R.string.coinex, arrayListOf(BaseCurrency.BCH.name, BaseCurrency.BTC.name, BaseCurrency.ETH.name, BaseCurrency.USDT.name)),
     HITBIT(R.string.hitbit, arrayListOf(BaseCurrency.BTC.name, BaseCurrency.ETH.name, BaseCurrency.USD.name, BaseCurrency.EURS.name, BaseCurrency.DAI.name, BaseCurrency.TUSD.name))
 
+
+}
+
+fun getExchange(name: String, context: Context): Exchange? {
+    for (value in Exchange.values()) {
+        if (name == context.getString(value.nameRes)) {
+            return value
+        }
+    }
+    return null
 }

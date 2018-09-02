@@ -1,29 +1,34 @@
 package com.googry.coinhelper.viewmodel
 
+import android.app.Application
 import android.arch.lifecycle.MutableLiveData
 import com.googry.coinhelper.base.ui.BaseViewModel
 import com.googry.coinhelper.data.enums.Exchange
+import com.googry.coinhelper.data.enums.getExchange
 import com.googry.coinhelper.data.source.MainExchangeDataSource
 
 class ExchangeSelectViewModel(
+        private val application: Application,
         val mainExchangeDataSource: MainExchangeDataSource
 ) : BaseViewModel() {
 
-    val liveExchanges = MutableLiveData<List<Exchange>>()
+    val liveExchanges = MutableLiveData<List<String>>()
 
     var selectedItemPosition = -1
 
     init {
         val exchanges = Exchange.values()
-        liveExchanges.postValue(exchanges.toList())
-        selectedItemPosition = exchanges.indexOf(mainExchangeDataSource.getSelectedExchange())
+        liveExchanges.value = (exchanges.toList().map {
+            application.getString(it.nameRes)
+        }.sortedBy { it })
+        selectedItemPosition = liveExchanges.value!!.indexOf(application.getString(mainExchangeDataSource.getSelectedExchange()?.nameRes!!))
     }
 
     fun saveMainExchange(): Boolean {
         if (selectedItemPosition == -1) {
             return false
         }
-        mainExchangeDataSource.saveMainExchange(Exchange.values()[selectedItemPosition])
+        mainExchangeDataSource.saveMainExchange(getExchange(liveExchanges.value!![selectedItemPosition], application)!!)
         return true
     }
 

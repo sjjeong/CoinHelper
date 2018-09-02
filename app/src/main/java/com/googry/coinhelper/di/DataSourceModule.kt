@@ -5,7 +5,6 @@ import com.googry.coinhelper.data.source.MainExchangeRepository
 import com.googry.coinhelper.data.source.ticker.*
 import org.koin.dsl.module.applicationContext
 
-const val COMMON_TICKER_DATA_SOURCE = "COMMON_TICKER_DATA_SOURCE"
 const val COINONE_TICKER_DATA_SOURCE = "COINONE_TICKER_DATA_SOURCE"
 const val UPBIT_TICKER_DATA_SOURCE = "UPBIT_TICKER_DATA_SOURCE"
 const val BITHUMB_TICKER_DATA_SOURCE = "BITHUMB_TICKER_DATA_SOURCE"

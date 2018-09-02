@@ -15,64 +15,33 @@
             name="coinSortVM"
             type="com.googry.coinhelper.viewmodel.CoinSortViewModel" />
 
+        <variable
+            name="exchangeSelectVM"
+            type="com.googry.coinhelper.viewmodel.ExchangeSelectViewModel" />
+
     </data>
-
-    <!--<android.support.v4.widget.DrawerLayout-->
-    <!--android:id="@+id/dl_root"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent">-->
-
 
     <com.sothree.slidinguppanel.SlidingUpPanelLayout
         android:id="@+id/supl_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="bottom"
-        app:umanoAnchorPoint="0.4"
-        app:umanoInitialState="hidden"
-        app:umanoPanelHeight="0dp"
+        app:umanoInitialState="expanded"
+        app:umanoOverlay="true"
+        app:umanoPanelHeight="?attr/actionBarSize"
+        app:umanoScrollableView="@id/rv_exchange_list"
         app:umanoShadowHeight="4dp">
 
         <LinearLayout
             android:id="@+id/cl_root"
             style="@style/RootTopViewGroup"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="?attr/actionBarSize">
 
-            <LinearLayout
-                android:id="@+id/ll_title"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="8dp"
-                    android:src="@mipmap/ic_launcher" />
-
-                <TextView
-                    android:id="@+id/tv_exchange"
-                    style="@style/TitleText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="1"
-                    tools:text="@string/app_name" />
-
-
-                <!--<ImageView-->
-                <!--android:id="@+id/ic_arrow_forward"-->
-                <!--android:layout_width="36dp"-->
-                <!--android:layout_height="36dp"-->
-                <!--android:layout_marginEnd="8dp"-->
-                <!--android:onClick="@{() -> view.onOpenSideMenuClick()}"-->
-                <!--android:src="@drawable/ic_action_arrow_forward" />-->
-            </LinearLayout>
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/tl_content"
+                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
                 app:tabIndicatorHeight="0dp"
@@ -212,25 +181,65 @@
 
         </LinearLayout>
 
-        <FrameLayout
-            android:id="@+id/supl_content"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
-            android:orientation="vertical">
+            android:background="@color/white">
+
+            <LinearLayout
+                android:id="@+id/ll_title"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@mipmap/ic_launcher" />
+
+                <TextView
+                    android:id="@+id/tv_exchange"
+                    style="@style/TitleText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    tools:text="@string/app_name" />
 
 
-        </FrameLayout>
+                <ImageView
+                android:id="@+id/ic_arrow_forward"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="8dp"
+                android:onClick="@{() -> view.onOpenExchangeListClick()}"
+                android:src="@drawable/ic_action_arrow_forward" />
+            </LinearLayout>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_exchange_list"
+                replaceAll="@{exchangeSelectVM.liveExchanges}"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="8dp"
+                android:clipToPadding="false"
+                android:padding="8dp"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ll_title" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
-
-
-    <!--<FrameLayout-->
-    <!--android:id="@+id/fl_side_right"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_gravity="end"-->
-    <!--android:layout_marginEnd="-65dp"-->
-    <!--android:background="@drawable/bg_round" />-->
-    <!--</android.support.v4.widget.DrawerLayout>-->
 
 </layout>
