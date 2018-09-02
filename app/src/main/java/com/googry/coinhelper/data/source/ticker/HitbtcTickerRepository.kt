@@ -3,8 +3,8 @@ package com.googry.coinhelper.data.source.ticker
 import com.googry.coinhelper.data.model.Ticker
 import com.googry.coinhelper.ext.logE
 import com.googry.coinhelper.ext.networkCommunication
-import com.googry.coinhelper.network.api.HitbitApi
-import com.googry.coinhelper.network.model.HitbitTickerResponse
+import com.googry.coinhelper.network.api.HitbtcApi
+import com.googry.coinhelper.network.model.HitbtcTickerResponse
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -12,7 +12,7 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import java.util.concurrent.TimeUnit
 
-class HitbitTickerRepository(private val hitbitApi: HitbitApi)
+class HitbtcTickerRepository(private val hitbtcApi: HitbtcApi)
     : TickerDataSource {
 
     companion object {
@@ -20,7 +20,7 @@ class HitbitTickerRepository(private val hitbitApi: HitbitApi)
 
         private val compositeDisposable = CompositeDisposable()
 
-        private var tickerBehaviorSubject: BehaviorSubject<Map<String, HitbitTickerResponse>>? = null
+        private var sTickerBehaviorSubject: BehaviorSubject<Map<String, HitbtcTickerResponse>>? = null
 
         private var subscribeCnt = 0
     }
@@ -29,23 +29,23 @@ class HitbitTickerRepository(private val hitbitApi: HitbitApi)
     override fun getAllTicker(baseCurrency: String?,
                               success: (tickers: List<Ticker>) -> Unit,
                               failed: (errorCode: String) -> Unit): Disposable {
-        if (tickerBehaviorSubject == null && subscribeCnt == 0) {
+        if (sTickerBehaviorSubject == null && subscribeCnt == 0) {
             logE("create")
-            tickerBehaviorSubject = BehaviorSubject.create<Map<String, HitbitTickerResponse>>()
+            sTickerBehaviorSubject = BehaviorSubject.create<Map<String, HitbtcTickerResponse>>()
             compositeDisposable.add(Observable.interval(0, REQUEST_TIME_IN_MILLIS, TimeUnit.MILLISECONDS)
                     .observeOn(Schedulers.newThread())
                     .subscribe {
-                        hitbitApi.getAllTickers()
+                        hitbtcApi.getAllTickers()
                                 .networkCommunication()
                                 .subscribe({
-                                    tickerBehaviorSubject?.onNext(it)
+                                    sTickerBehaviorSubject?.onNext(it)
                                 }) {
-                                    tickerBehaviorSubject?.onError(it)
+                                    sTickerBehaviorSubject?.onError(it)
                                 }
                     })
         }
         subscribeCnt += 1
-        return tickerBehaviorSubject!!
+        return sTickerBehaviorSubject!!
                 .map {
                     it.filter {
                         it.key.endsWith(baseCurrency!!)
@@ -65,10 +65,10 @@ class HitbitTickerRepository(private val hitbitApi: HitbitApi)
 
     override fun finish() {
         subscribeCnt -= 1
-        if (tickerBehaviorSubject != null && subscribeCnt == 0) {
+        if (sTickerBehaviorSubject != null && subscribeCnt == 0) {
             logE("finish")
             compositeDisposable.clear()
-            tickerBehaviorSubject = null
+            sTickerBehaviorSubject = null
         }
     }
 
