@@ -27,25 +27,25 @@ class MainExchangeSelectFragment
         binding.run {
             setLifecycleOwner(this@MainExchangeSelectFragment)
             vm = exchangeSelectViewModel
-            rvContent.adapter = object : BaseRecyclerViewAdapter<Exchange>() {
+            rvContent.adapter = object : BaseRecyclerViewAdapter<String>() {
 
                 var selectedItemView: View? = null
 
                 override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-                        object : BaseViewHolder<Exchange, ExchangeSelectItemBinding>(
+                        object : BaseViewHolder<String, ExchangeSelectItemBinding>(
                                 R.layout.exchange_select_item,
                                 parent
                         ) {
 
                             init {
                                 itemView.setOnClickListener {
-                                    exchangeSelectViewModel?.selectedItemPosition = adapterPosition
+                                    exchangeSelectViewModel.selectedItemPosition = adapterPosition
                                     exchangeSelectViewModel.saveMainExchange()
                                     notifyDataSetChanged()
                                 }
                             }
 
-                            override fun onViewCreated(item: Exchange?) {
+                            override fun onViewCreated(item: String?) {
                                 binding.run {
                                     exchange = item
                                     selectedPosition = exchangeSelectViewModel.selectedItemPosition
