@@ -23,7 +23,6 @@ android {
         buildConfigField "String", "BinanceRestUrl", "\"https://api.binance.com/\""
         buildConfigField "String", "BitfinexRestUrl", "\"https://api.bitfinex.com/\""
         buildConfigField "String", "HuobiRestUrl", "\"https://api.huobi.pro/\""
-        buildConfigField "String", "BitforexRestUrl", "\"https://www.bitforex.com/\""
         buildConfigField "String", "CoinexRestUrl", "\"https://api.coinex.com/\""
         buildConfigField "String", "HitbtcRestUrl", "\"https://api.hitbtc.com/\""
     }
