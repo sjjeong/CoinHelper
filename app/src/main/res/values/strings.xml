@@ -11,10 +11,10 @@
     <string name="binance">바이낸스(Binance)</string>
     <string name="bitfinex">비트파이넥스(Bitfinex)</string>
     <string name="huobi">후오비(Huobi)</string>
-    <string name="coinex">코인엑스(Coinex)</string>
-    <string name="hitbit">힛빗(Hitbit)</string>
     <string name="bitforex">비트포렉스(Bitforex)</string>
     <string name="bitz">비트지(Bit-Z)</string>
+    <string name="coinex">코인엑스(CoinEx)</string>
+    <string name="hitbtc">힛빗(HitBTC)</string>
 
     <string name="description_welcome_title">환영합니다!</string>
     <string name="description_welcome_content">간단한 설정을 하고\n앱을 사용해봐요.</string>

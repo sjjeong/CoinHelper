@@ -129,6 +129,6 @@ val networkModule = applicationContext {
                 .addCallAdapterFactory(get())
                 .addConverterFactory(get())
                 .build()
-                .create(HitbitApi::class.java)
+                .create(HitbtcApi::class.java)
     }
 }

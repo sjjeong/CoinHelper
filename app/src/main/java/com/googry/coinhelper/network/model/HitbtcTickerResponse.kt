@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import com.googry.coinhelper.data.model.ITicker
 import com.googry.coinhelper.data.model.Ticker
 
-data class HitbitTickerResponse(
+data class HitbtcTickerResponse(
         @SerializedName("ask") val ask: String?,
         @SerializedName("bid") val bid: String?,
         @SerializedName("last") var last: String?,
