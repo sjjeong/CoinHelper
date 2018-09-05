@@ -21,7 +21,9 @@ class ExchangeSelectViewModel(
         liveExchanges.value = (exchanges.toList().map {
             application.getString(it.nameRes)
         }.sortedBy { it })
-        selectedItemPosition = liveExchanges.value!!.indexOf(application.getString(mainExchangeDataSource.getSelectedExchange()?.nameRes!!))
+        mainExchangeDataSource.getSelectedExchange()?.let {
+            selectedItemPosition = liveExchanges.value!!.indexOf(application.getString(it.nameRes))
+        }
     }
 
     fun saveMainExchange(): Boolean {
