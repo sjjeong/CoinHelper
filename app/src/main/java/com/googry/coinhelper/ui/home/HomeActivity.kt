@@ -1,7 +1,9 @@
 package com.googry.coinhelper.ui.home
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.FragmentStatePagerAdapter
+import android.support.v4.widget.DrawerLayout
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -14,22 +16,22 @@ import com.googry.coinhelper.base.ui.BaseRecyclerViewAdapter
 import com.googry.coinhelper.base.ui.BaseViewHolder
 import com.googry.coinhelper.databinding.ExchangeSelectItemBinding
 import com.googry.coinhelper.databinding.HomeActivityBinding
-import com.googry.coinhelper.ui.menu.MenuActivity
+import com.googry.coinhelper.ext.replaceFragmentInActivity
+import com.googry.coinhelper.ui.menu.MenuFragment
 import com.googry.coinhelper.viewmodel.CoinSortViewModel
 import com.googry.coinhelper.viewmodel.ExchangeSelectViewModel
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
-import org.jetbrains.anko.startActivity
 import org.koin.android.architecture.ext.viewModel
 import org.koin.android.architecture.ext.viewModelByClass
 
 class HomeActivity
     : BaseActivity<HomeActivityBinding>(R.layout.home_activity) {
 
-    private val exitToast by lazy { Toast.makeText(applicationContext, R.string.description_back_finish, Toast.LENGTH_LONG) }
-
     private val exchangeSelectViewModel by viewModel<ExchangeSelectViewModel>()
 
     private val coinSortViewModel by viewModelByClass(true, CoinSortViewModel::class)
+
+    private var exitTime = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,14 +40,27 @@ class HomeActivity
             view = this@HomeActivity
             coinSortVM = coinSortViewModel
             exchangeSelectVM = exchangeSelectViewModel
-            icArrowForward.rotation = -90f
+            replaceFragmentInActivity(MenuFragment.newInstance(), R.id.fl_end_side)
+            dlRoot.run {
+                setScrimColor(Color.TRANSPARENT)
+                addDrawerListener(object : DrawerLayout.DrawerListener {
+                    override fun onDrawerStateChanged(newState: Int) {
+                    }
+
+                    override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+                        if (drawerView.id == R.id.fl_end_side) {
+                            clRoot.translationX = -clRoot.width * slideOffset
+                        }
+                    }
+
+                    override fun onDrawerClosed(drawerView: View) {
+                    }
+
+                    override fun onDrawerOpened(drawerView: View) {
+                    }
+                })
+            }
             tlContent.setupWithViewPager(vpContent)
-            tvExchange.setOnClickListener {
-                suplRoot.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-            }
-            llTitle.setOnClickListener {
-                suplRoot.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
-            }
             vpContent.addOnAdapterChangeListener { viewPager, oldAdapter, _ ->
                 (oldAdapter as? FragmentStatePagerAdapter)?.let {
                     val position = vpContent.currentItem
@@ -61,7 +76,7 @@ class HomeActivity
             }
             suplRoot.addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
                 override fun onPanelSlide(panel: View?, slideOffset: Float) {
-                    icArrowForward.rotation = slideOffset * 180 - 90
+                    icArrowForward.rotation = slideOffset * 180
                 }
 
                 override fun onPanelStateChanged(panel: View?, previousState: SlidingUpPanelLayout.PanelState?, newState: SlidingUpPanelLayout.PanelState?) {
@@ -116,10 +131,11 @@ class HomeActivity
             binding.suplRoot.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
             return
         }
-        if (exitToast.view.windowVisibility == View.VISIBLE) {
-            super.onBackPressed()
+        if (System.currentTimeMillis() - exitTime > 2000) {
+            Toast.makeText(applicationContext, R.string.description_back_finish, Toast.LENGTH_SHORT).show()
+            exitTime = System.currentTimeMillis()
         } else {
-            exitToast.show()
+            super.onBackPressed()
         }
     }
 
@@ -127,7 +143,7 @@ class HomeActivity
     fun refreshPage() {
         binding.run {
             suplRoot.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-            tvExchange.text = getString(R.string.for_exchange_fmt, getString(exchangeSelectViewModel.getSelectedExchange().nameRes))
+            tvExchange.text = getString(exchangeSelectViewModel.getSelectedExchange().nameRes)
             val pageTitles = exchangeSelectViewModel.getBaseCurrencies()
             vpContent.adapter = object : FragmentStatePagerAdapter(supportFragmentManager) {
 
@@ -148,7 +164,7 @@ class HomeActivity
         }
     }
 
-    fun onMenuClick(){
-        startActivity<MenuActivity>()
+    fun onMenuClick() {
+        binding.dlRoot.openDrawer(binding.flEndSide)
     }
 }

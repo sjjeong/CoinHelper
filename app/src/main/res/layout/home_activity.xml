@@ -21,266 +21,282 @@
 
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/dl_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.sothree.slidinguppanel.SlidingUpPanelLayout
-            android:id="@+id/supl_root"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:gravity="bottom"
-            app:layout_constraintBottom_toTopOf="@id/ad_view_banner"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:umanoInitialState="expanded"
-            app:umanoOverlay="true"
-            app:umanoPanelHeight="?attr/actionBarSize"
-            app:umanoScrollableView="@id/rv_exchange_list"
-            app:umanoShadowHeight="4dp">
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/cl_root"
+            style="@style/RootTopViewGroup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <LinearLayout
-                android:id="@+id/cl_root"
-                style="@style/RootTopViewGroup"
-                android:orientation="vertical"
-                android:paddingBottom="?attr/actionBarSize">
-
-
-                <android.support.design.widget.TabLayout
-                    android:id="@+id/tl_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="24dp"
-                    android:layout_marginTop="8dp"
-                    app:tabIndicatorHeight="0dp"
-                    app:tabMode="scrollable"
-                    app:tabPadding="2dp"
-                    app:tabSelectedTextColor="@color/blue4"
-                    app:tabTextAppearance="@style/TabLayoutTextStyle"
-                    app:tabTextColor="@color/gray2" />
+                android:id="@+id/ll_toolbar"
+                android:layout_width="0dp"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingBottom="4dp"
-                    android:paddingEnd="12dp"
-                    android:paddingStart="12dp"
-                    android:paddingTop="4dp">
-
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1.5"
-                        android:gravity="center_vertical"
-                        android:onClick='@{() ->coinSortVM.onSortClick("currency")}'
-                        android:orientation="horizontal"
-                        android:paddingBottom="4dp"
-                        android:paddingTop="4dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/coin_name"
-                            android:textSize="14sp" />
-
-                        <ImageView
-                            isSelected="@{coinSortVM.liveIsDescending}"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_arrow_drop_selector"
-                            android:visibility='@{coinSortVM.liveSelectedSortItem.equals("currency") ? View.VISIBLE : View.GONE}' />
-
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_weight="3"
-                        android:gravity="center_vertical"
-                        android:onClick='@{() ->coinSortVM.onSortClick("last")}'
-                        android:orientation="horizontal"
-                        android:paddingBottom="4dp"
-                        android:paddingTop="4dp">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="end"
-                            android:text="@string/last"
-                            android:textSize="14sp" />
-
-                        <ImageView
-                            isSelected="@{coinSortVM.liveIsDescending}"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_arrow_drop_selector"
-                            android:visibility='@{coinSortVM.liveSelectedSortItem.equals("last") ? View.VISIBLE : View.GONE}' />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:gravity="center_vertical"
-                        android:onClick='@{() ->coinSortVM.onSortClick("diff")}'
-                        android:orientation="horizontal"
-                        android:paddingBottom="4dp"
-                        android:paddingTop="4dp">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="end"
-                            android:text="@string/trade_diff"
-                            android:textSize="14sp" />
-
-                        <ImageView
-                            isSelected="@{coinSortVM.liveIsDescending}"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_arrow_drop_selector"
-                            android:visibility='@{coinSortVM.liveSelectedSortItem.equals("diff") ? View.VISIBLE : View.GONE}' />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:gravity="center_vertical"
-                        android:onClick='@{() ->coinSortVM.onSortClick("volume")}'
-                        android:orientation="horizontal"
-                        android:paddingBottom="4dp"
-                        android:paddingTop="4dp">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="end"
-                            android:text="@string/trade_amount"
-                            android:textSize="14sp" />
-
-                        <ImageView
-                            isSelected="@{coinSortVM.liveIsDescending}"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_arrow_drop_selector"
-                            android:visibility='@{coinSortVM.liveSelectedSortItem.equals("volume") ? View.VISIBLE : View.GONE}' />
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
-
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/vp_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </LinearLayout>
-
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white">
-
-                <LinearLayout
-                    android:id="@+id/ll_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:gravity="center_vertical"
+                    android:onClick="@{() -> view.onOpenExchangeListClick()}"
                     android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:layout_marginStart="8dp"
-                        android:src="@mipmap/ic_launcher" />
 
                     <TextView
                         android:id="@+id/tv_exchange"
                         style="@style/TitleText"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:layout_marginStart="8dp"
-                        android:layout_weight="1"
                         tools:text="@string/app_name" />
-
 
                     <ImageView
                         android:id="@+id/ic_arrow_forward"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:layout_marginEnd="8dp"
-                        android:onClick="@{() -> view.onOpenExchangeListClick()}"
-                        android:src="@drawable/ic_action_arrow_forward" />
-                </LinearLayout>
-
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_exchange_list"
-                    replaceAll="@{exchangeSelectVM.liveExchanges}"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:clipToPadding="false"
-                    android:paddingBottom="8dp"
-                    android:paddingEnd="30dp"
-                    android:paddingStart="30dp"
-                    android:paddingTop="8dp"
-                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-                    app:layout_constraintBottom_toTopOf="@id/ll_bottom"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ll_title" />
-
-                <LinearLayout
-                    android:id="@+id/ll_bottom"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:background="@color/gray1"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical|end"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
-
-                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:onClick="@{() -> view.onMenuClick()}"
-                        android:padding="8dp"
-                        android:src="@drawable/ic_menu" />
+                        android:src="@drawable/ic_keyboard_arrow_down" />
 
                 </LinearLayout>
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> view.onMenuClick()}"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_menu" />
+            </LinearLayout>
 
-            </android.support.constraint.ConstraintLayout>
+
+            <com.sothree.slidinguppanel.SlidingUpPanelLayout
+                android:id="@+id/supl_root"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="top"
+                app:layout_constraintBottom_toTopOf="@id/ad_view_banner"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ll_toolbar"
+                app:umanoInitialState="hidden"
+                app:umanoOverlay="true"
+                app:umanoPanelHeight="0dp"
+                app:umanoScrollableView="@id/rv_exchange_list"
+                app:umanoShadowHeight="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp"
+                    android:orientation="vertical">
+
+                    <android.support.design.widget.TabLayout
+                        android:id="@+id/tl_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp"
+                        android:layout_marginTop="8dp"
+                        app:tabIndicatorHeight="0dp"
+                        app:tabMode="scrollable"
+                        app:tabPadding="2dp"
+                        app:tabSelectedTextColor="@color/blue4"
+                        app:tabTextAppearance="@style/TabLayoutTextStyle"
+                        app:tabTextColor="@color/gray2" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingBottom="4dp"
+                        android:paddingEnd="12dp"
+                        android:paddingStart="12dp"
+                        android:paddingTop="4dp">
 
 
-        </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.5"
+                            android:gravity="center_vertical"
+                            android:onClick='@{() ->coinSortVM.onSortClick("currency")}'
+                            android:orientation="horizontal"
+                            android:paddingBottom="4dp"
+                            android:paddingTop="4dp">
 
-        <com.google.android.gms.ads.AdView
-            android:id="@+id/ad_view_banner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:visibility="gone"
-            app:adSize="BANNER"
-            app:adUnitId="@string/admob_main_bottom_banner_key"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/coin_name"
+                                android:textSize="14sp" />
+
+                            <ImageView
+                                isSelected="@{coinSortVM.liveIsDescending}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_arrow_drop_selector"
+                                android:visibility='@{coinSortVM.liveSelectedSortItem.equals("currency") ? View.VISIBLE : View.GONE}' />
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_weight="3"
+                            android:gravity="center_vertical"
+                            android:onClick='@{() ->coinSortVM.onSortClick("last")}'
+                            android:orientation="horizontal"
+                            android:paddingBottom="4dp"
+                            android:paddingTop="4dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:text="@string/last"
+                                android:textSize="14sp" />
+
+                            <ImageView
+                                isSelected="@{coinSortVM.liveIsDescending}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_arrow_drop_selector"
+                                android:visibility='@{coinSortVM.liveSelectedSortItem.equals("last") ? View.VISIBLE : View.GONE}' />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center_vertical"
+                            android:onClick='@{() ->coinSortVM.onSortClick("diff")}'
+                            android:orientation="horizontal"
+                            android:paddingBottom="4dp"
+                            android:paddingTop="4dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:text="@string/trade_diff"
+                                android:textSize="14sp" />
+
+                            <ImageView
+                                isSelected="@{coinSortVM.liveIsDescending}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_arrow_drop_selector"
+                                android:visibility='@{coinSortVM.liveSelectedSortItem.equals("diff") ? View.VISIBLE : View.GONE}' />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center_vertical"
+                            android:onClick='@{() -> coinSortVM.onSortClick("volume")}'
+                            android:orientation="horizontal"
+                            android:paddingBottom="4dp"
+                            android:paddingTop="4dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:text="@string/trade_amount"
+                                android:textSize="14sp" />
+
+                            <ImageView
+                                isSelected="@{coinSortVM.liveIsDescending}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_arrow_drop_selector"
+                                android:visibility='@{coinSortVM.liveSelectedSortItem.equals("volume") ? View.VISIBLE : View.GONE}' />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/vp_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </LinearLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_exchange_list"
+                        replaceAll="@{exchangeSelectVM.liveExchanges}"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/bg_bottom_round"
+                        android:clipToPadding="false"
+                        android:paddingBottom="8dp"
+                        android:paddingEnd="30dp"
+                        android:paddingStart="30dp"
+                        android:paddingTop="8dp"
+                        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toTopOf="@id/space"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Space
+                        android:id="@+id/space"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                </android.support.constraint.ConstraintLayout>
+
+
+            </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
+            <com.google.android.gms.ads.AdView
+                android:id="@+id/ad_view_banner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:visibility="gone"
+                app:adSize="BANNER"
+                app:adUnitId="@string/admob_main_bottom_banner_key"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_end_side"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:layout_marginEnd="-65dp" />
+
+    </android.support.v4.widget.DrawerLayout>
 
 </layout>

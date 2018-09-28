@@ -10,8 +10,10 @@ import com.googry.coinhelper.base.ui.BaseViewHolder
 import com.googry.coinhelper.data.model.Ticker
 import com.googry.coinhelper.databinding.CoinListFragmentBinding
 import com.googry.coinhelper.databinding.CoinListItemBinding
+import com.googry.coinhelper.ui.coin.CoinCompareActivity
 import com.googry.coinhelper.viewmodel.CoinListViewModel
 import com.googry.coinhelper.viewmodel.CoinSortViewModel
+import org.jetbrains.anko.intentFor
 import org.koin.android.architecture.ext.sharedViewModel
 import org.koin.android.architecture.ext.viewModel
 
@@ -48,7 +50,8 @@ class CoinListFragment
                             ) {
                                 init {
                                     itemView.setOnClickListener {
-                                        // TODO 아이템 선택하면 이벤트 처리
+                                        startActivity(context.intentFor<CoinCompareActivity>(CoinCompareActivity.EXTRA_CURRENCY to binding.ticker?.currency,
+                                                CoinCompareActivity.EXTRA_BASE_CURRENCY to binding.ticker?.baseCurrency))
                                     }
                                 }
 

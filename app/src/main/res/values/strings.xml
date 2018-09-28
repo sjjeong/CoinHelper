@@ -32,7 +32,6 @@
     <string name="trade_diff">전일대비</string>
     <string name="please_select_main_exchange">주 거래소를 선택해 주세요.</string>
     <string name="select_exchange">거래소 선택</string>
-    <string name="for_exchange_fmt">for %1$s</string>
     <string name="setting">설정</string>
     <string name="etc">기타</string>
     <string name="privacy_policy">개인정보이용정책</string>
