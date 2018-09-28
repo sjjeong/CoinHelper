@@ -20,7 +20,7 @@ class HitbtcTickerRepository(private val hitbtcApi: HitbtcApi)
 
         private val compositeDisposable = CompositeDisposable()
 
-        private var sTickerBehaviorSubject: BehaviorSubject<Map<String, HitbtcTickerResponse>>? = null
+        private var tickerBehaviorSubject: BehaviorSubject<Map<String, HitbtcTickerResponse>>? = null
 
         private var subscribeCnt = 0
     }
@@ -29,23 +29,22 @@ class HitbtcTickerRepository(private val hitbtcApi: HitbtcApi)
     override fun getAllTicker(baseCurrency: String?,
                               success: (tickers: List<Ticker>) -> Unit,
                               failed: (errorCode: String) -> Unit): Disposable {
-        if (sTickerBehaviorSubject == null && subscribeCnt == 0) {
+        if (tickerBehaviorSubject == null && subscribeCnt == 0) {
             logE("create")
-            sTickerBehaviorSubject = BehaviorSubject.create<Map<String, HitbtcTickerResponse>>()
+            tickerBehaviorSubject = BehaviorSubject.create<Map<String, HitbtcTickerResponse>>()
             compositeDisposable.add(Observable.interval(0, REQUEST_TIME_IN_MILLIS, TimeUnit.MILLISECONDS)
                     .observeOn(Schedulers.newThread())
                     .subscribe {
                         hitbtcApi.getAllTickers()
                                 .networkCommunication()
                                 .subscribe({
-                                    sTickerBehaviorSubject?.onNext(it)
+                                    tickerBehaviorSubject?.onNext(it)
                                 }) {
-                                    sTickerBehaviorSubject?.onError(it)
                                 }
                     })
         }
         subscribeCnt += 1
-        return sTickerBehaviorSubject!!
+        return tickerBehaviorSubject!!
                 .map {
                     it.filter {
                         it.key.endsWith(baseCurrency!!)
@@ -65,10 +64,10 @@ class HitbtcTickerRepository(private val hitbtcApi: HitbtcApi)
 
     override fun finish() {
         subscribeCnt -= 1
-        if (sTickerBehaviorSubject != null && subscribeCnt == 0) {
+        if (tickerBehaviorSubject != null && subscribeCnt == 0) {
             logE("finish")
             compositeDisposable.clear()
-            sTickerBehaviorSubject = null
+            tickerBehaviorSubject = null
         }
     }
 

@@ -43,7 +43,6 @@ class GopaxTickerRepository(private val gopaxApi: GopaxApi)
                                 }.subscribe({
                                     tickerBehaviorSubject?.onNext(it)
                                 }) {
-                                    tickerBehaviorSubject?.onError(it)
                                 }
                     })
         }

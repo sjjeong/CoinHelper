@@ -46,7 +46,6 @@ class BithumbTickerRepository(private val bithumbApi: BithumbApi)
                             .subscribe({
                                 success.invoke(it)
                             }) {
-                                failed.invoke("")
                             }
 
                 }

@@ -40,7 +40,6 @@ class HuobiTickerRepository(private val huobiApi: HuobiApi)
                                 .subscribe({
                                     tickerBehaviorSubject?.onNext(it.data)
                                 }) {
-                                    tickerBehaviorSubject?.onError(it)
                                 }
                     })
         }

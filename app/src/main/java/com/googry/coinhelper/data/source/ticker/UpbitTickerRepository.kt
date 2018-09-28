@@ -52,10 +52,8 @@ class UpbitTickerRepository(private val upbitApi: UpbitApi)
                                             .subscribe({
                                                 tickerBehaviorSubject?.onNext(it)
                                             }) {
-                                                tickerBehaviorSubject?.onError(it)
                                             }
                                 }) {
-                                    tickerBehaviorSubject?.onError(it)
                                 }
                     })
         }

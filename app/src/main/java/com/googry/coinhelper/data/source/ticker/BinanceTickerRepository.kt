@@ -40,7 +40,6 @@ class BinanceTickerRepository(private val binanceApi: BinanceApi)
                                 .subscribe({
                                     tickerBehaviorSubject?.onNext(it)
                                 }) {
-                                    tickerBehaviorSubject?.onError(it)
                                 }
                     })
         }

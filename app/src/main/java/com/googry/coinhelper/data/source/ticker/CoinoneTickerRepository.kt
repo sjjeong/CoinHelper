@@ -49,7 +49,6 @@ class CoinoneTickerRepository(private val coinoneApi: CoinoneApi)
                             .subscribe({
                                 success.invoke(it)
                             }) {
-                                failed.invoke("")
                             }
                 }
     }

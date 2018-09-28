@@ -40,7 +40,6 @@ class CoinexTickerRepository(private val coinexApi: CoinexApi)
                                 .subscribe({
                                     tickerBehaviorSubject?.onNext(it)
                                 }) {
-                                    tickerBehaviorSubject?.onError(it)
                                 }
                     })
         }

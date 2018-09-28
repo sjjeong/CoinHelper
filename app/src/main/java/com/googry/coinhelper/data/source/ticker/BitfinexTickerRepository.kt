@@ -45,7 +45,6 @@ class BitfinexTickerRepository(private val bitfinexApi: BitfinexApi)
                                 .subscribe({
                                     tickerBehaviorSubject?.onNext(it)
                                 }) {
-                                    tickerBehaviorSubject?.onError(it)
                                 }
                     })
         }
