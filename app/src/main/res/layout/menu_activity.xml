@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="view"
+            type="com.googry.coinhelper.ui.menu.MenuActivity" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/bg_top_round"
+            android:gravity="center_vertical"
+            android:paddingEnd="12dp"
+            android:paddingStart="12dp">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:src="@drawable/ic_arrow_back" />
+
+            <TextView
+                style="@style/TitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/menu" />
+
+        </LinearLayout>
+
+        <include layout="@layout/include_horizontal_divider" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_bottom_round"
+                android:orientation="vertical"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp">
+
+                <TextView
+                    style="@style/MenuTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/communication" />
+
+                <TextView
+                    style="@style/MenuItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick='@{() -> view.onShowKakaoPlus()}'
+                    android:text="@string/talk_to_developer" />
+
+                <TextView
+                    style="@style/MenuItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick='@{() -> view.onShowKakaoOpenTalkClick()}'
+                    android:text="@string/talk_to_user" />
+
+                <TextView
+                    style="@style/MenuItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick='@{() -> view.onOpenMarketClick()}'
+                    android:text="@string/write_review_rating" />
+
+
+                <TextView
+                    style="@style/MenuTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/etc" />
+
+                <TextView
+                    style="@style/MenuItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick='@{() -> view.onShowWebView("https://coinhelper-ccd77.firebaseapp.com/privacy_policy.html", @string/privacy_policy)}'
+                    android:text="@string/privacy_policy" />
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+</layout>

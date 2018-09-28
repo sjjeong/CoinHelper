@@ -33,5 +33,13 @@
     <string name="please_select_main_exchange">주 거래소를 선택해 주세요.</string>
     <string name="select_exchange">거래소 선택</string>
     <string name="for_exchange_fmt">for %1$s</string>
+    <string name="setting">설정</string>
+    <string name="etc">기타</string>
+    <string name="privacy_policy">개인정보이용정책</string>
+    <string name="communication">소통</string>
+    <string name="write_review_rating">리뷰 / 평점 작성하기</string>
+    <string name="talk_to_user">코인헬퍼 사용자와 카톡하기</string>
+    <string name="talk_to_developer">코인헬퍼와 카톡하기</string>
+    <string name="menu">메뉴</string>
 
 </resources>

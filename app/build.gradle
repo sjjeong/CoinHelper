@@ -98,6 +98,9 @@ dependencies {
 
     // Slide Up Pannel
     implementation "com.sothree.slidinguppanel:library:$slideUpPannelVersion"
+
+    // Anko
+    implementation "org.jetbrains.anko:anko-commons:$ankoVersion"
 }
 
 apply plugin: 'com.google.gms.google-services'

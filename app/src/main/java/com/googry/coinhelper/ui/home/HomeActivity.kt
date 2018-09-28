@@ -14,9 +14,11 @@ import com.googry.coinhelper.base.ui.BaseRecyclerViewAdapter
 import com.googry.coinhelper.base.ui.BaseViewHolder
 import com.googry.coinhelper.databinding.ExchangeSelectItemBinding
 import com.googry.coinhelper.databinding.HomeActivityBinding
+import com.googry.coinhelper.ui.menu.MenuActivity
 import com.googry.coinhelper.viewmodel.CoinSortViewModel
 import com.googry.coinhelper.viewmodel.ExchangeSelectViewModel
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
+import org.jetbrains.anko.startActivity
 import org.koin.android.architecture.ext.viewModel
 import org.koin.android.architecture.ext.viewModelByClass
 
@@ -146,4 +148,7 @@ class HomeActivity
         }
     }
 
+    fun onMenuClick(){
+        startActivity<MenuActivity>()
+    }
 }
