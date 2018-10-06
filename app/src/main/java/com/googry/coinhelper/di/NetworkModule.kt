@@ -97,12 +97,12 @@ val networkModule = applicationContext {
     }
     bean {
         Retrofit.Builder()
-                .baseUrl(BuildConfig.CoinexRestUrl)
+                .baseUrl(BuildConfig.CoinExRestUrl)
                 .client(get())
                 .addCallAdapterFactory(get())
                 .addConverterFactory(get())
                 .build()
-                .create(CoinexApi::class.java)
+                .create(CoinExApi::class.java)
     }
     bean {
         Retrofit.Builder()

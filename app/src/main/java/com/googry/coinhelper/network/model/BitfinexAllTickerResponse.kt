@@ -4,7 +4,7 @@ import com.googry.coinhelper.data.model.ExchangeTicker
 import com.googry.coinhelper.data.model.ITicker
 import com.googry.coinhelper.data.model.Ticker
 
-data class BitfinexTickerResponse(val data: List<String>)
+data class BitfinexAllTickerResponse(val data: List<String>)
     : ITicker {
     override fun toTicker(): Ticker {
         val last = data[LAST_POS].toDouble()
@@ -21,11 +21,12 @@ data class BitfinexTickerResponse(val data: List<String>)
 
     companion object {
 
-        const val LAST_POS = 6
-        const val DIFF_POS = 5
-        const val HIGH_POS = 8
-        const val LOW_POS = 9
-        const val VOLUME_POS = 7
+        const val SYMBOL_POS = 0
+        const val LAST_POS = 7
+        const val DIFF_POS = 6
+        const val HIGH_POS = 9
+        const val LOW_POS = 10
+        const val VOLUME_POS = 8
 
     }
 }

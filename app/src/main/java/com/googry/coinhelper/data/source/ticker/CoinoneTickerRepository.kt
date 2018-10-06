@@ -1,6 +1,7 @@
 package com.googry.coinhelper.data.source.ticker
 
 import com.google.gson.Gson
+import com.googry.coinhelper.data.model.ExchangeTicker
 import com.googry.coinhelper.data.model.Ticker
 import com.googry.coinhelper.ext.fromJson
 import com.googry.coinhelper.ext.networkCommunication
@@ -25,7 +26,7 @@ class CoinoneTickerRepository(private val coinoneApi: CoinoneApi)
         return Observable.interval(0, REQUEST_TIME_IN_MILLIS, TimeUnit.MILLISECONDS)
                 .observeOn(Schedulers.newThread())
                 .subscribe {
-                    coinoneApi.allTicker()
+                    coinoneApi.getAllTicker()
                             .networkCommunication()
                             .doOnSuccess {
                                 if (it[COINONE_TICKER_FIELD_ERROR_CODE] != "0") {
@@ -54,6 +55,27 @@ class CoinoneTickerRepository(private val coinoneApi: CoinoneApi)
     }
 
     override fun finish() {
+
+    }
+
+    override fun getTicker(currency: String, baseCurrency: String?,
+                           success: (ticker: ExchangeTicker) -> Unit,
+                           failed: (errorCode: String) -> Unit): Disposable {
+        return Observable.interval(0, REQUEST_TIME_IN_MILLIS, TimeUnit.MILLISECONDS)
+                .observeOn(Schedulers.newThread())
+                .subscribe {
+                    if (baseCurrency == "KRW") {
+                        coinoneApi.getTicker(currency)
+                                .networkCommunication()
+                                .subscribe({
+                                    if (!it.currency.isNullOrEmpty()) {
+                                        success.invoke(it.toExchangeTicker())
+                                    }
+                                }) {
+
+                                }
+                    }
+                }
 
     }
 }

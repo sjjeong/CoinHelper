@@ -1,19 +1,13 @@
 package com.googry.coinhelper.data.source
 
 import com.googry.coinhelper.data.enums.Exchange
+import com.googry.coinhelper.data.model.ExchangeTicker
 import com.googry.coinhelper.data.source.ticker.TickerDataSource
 import com.googry.coinhelper.util.PrefUtils
+import io.reactivex.disposables.CompositeDisposable
 
 class MainExchangeRepository(private val prefUtils: PrefUtils,
-                             private val coinoneDataSource: TickerDataSource,
-                             private val upbitDataSource: TickerDataSource,
-                             private val bithumbDataSource: TickerDataSource,
-                             private val gopaxDataSource: TickerDataSource,
-                             private val binanceDataSource: TickerDataSource,
-                             private val bitfinexDataSource: TickerDataSource,
-                             private val huobiDataSource: TickerDataSource,
-                             private val coinexDataSource: TickerDataSource,
-                             private val hitbtcDataSource: TickerDataSource)
+                             private val tickerDataSourceMap: Map<String, TickerDataSource>)
     : MainExchangeDataSource {
 
     override fun saveMainExchange(exchange: Exchange) {
@@ -22,18 +16,18 @@ class MainExchangeRepository(private val prefUtils: PrefUtils,
 
     override fun getSelectedExchange() = prefUtils.getExchange()
 
-    override fun getTickerDataSource() =
-            when (getSelectedExchange()) {
-                Exchange.COINONE -> coinoneDataSource
-                Exchange.UPBIT -> upbitDataSource
-                Exchange.BITHUMB -> bithumbDataSource
-                Exchange.GOPAX -> gopaxDataSource
-                Exchange.BINANCE -> binanceDataSource
-                Exchange.BITFINEX -> bitfinexDataSource
-                Exchange.HUOBI -> huobiDataSource
-                Exchange.COINEX -> coinexDataSource
-                Exchange.HITBIT -> hitbtcDataSource
-                else -> error("Unknown Exchange")
+    override fun getTickerDataSource() = tickerDataSourceMap[getSelectedExchange()!!.name]!!
 
-            }
+    override fun getMergeTicker(currency: String, baseCurrency: String?,
+                                response: (exchangeTicker: ExchangeTicker) -> Unit): CompositeDisposable {
+        val compositeDisposable = CompositeDisposable()
+        tickerDataSourceMap.forEach { t, u ->
+            compositeDisposable.add(u.getTicker(currency, baseCurrency, success = {
+                response.invoke(it)
+            }, failed = {
+
+            }))
+        }
+        return compositeDisposable
+    }
 }

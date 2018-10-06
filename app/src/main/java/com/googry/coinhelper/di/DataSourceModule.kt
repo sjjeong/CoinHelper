@@ -1,5 +1,6 @@
 package com.googry.coinhelper.di
 
+import com.googry.coinhelper.data.enums.Exchange
 import com.googry.coinhelper.data.source.MainExchangeDataSource
 import com.googry.coinhelper.data.source.MainExchangeRepository
 import com.googry.coinhelper.data.source.ticker.*
@@ -38,21 +39,22 @@ val dataSourceModule = applicationContext {
         HuobiTickerRepository(get()) as TickerDataSource
     }
     bean(COINEX_TICKER_DATA_SOURCE) {
-        CoinexTickerRepository(get()) as TickerDataSource
+        CoinExTickerRepository(get()) as TickerDataSource
     }
     bean(HITBTC_TICKER_DATA_SOURCE) {
         HitbtcTickerRepository(get()) as TickerDataSource
     }
     bean {
         MainExchangeRepository(get(),
-                get(COINONE_TICKER_DATA_SOURCE),
-                get(UPBIT_TICKER_DATA_SOURCE),
-                get(BITHUMB_TICKER_DATA_SOURCE),
-                get(GOPAX_TICKER_DATA_SOURCE),
-                get(BINANCE_TICKER_DATA_SOURCE),
-                get(BITFINEX_TICKER_DATA_SOURCE),
-                get(HUOBI_TICKER_DATA_SOURCE),
-                get(COINEX_TICKER_DATA_SOURCE),
-                get(HITBTC_TICKER_DATA_SOURCE)) as MainExchangeDataSource
+                mapOf(Exchange.COINONE.name to get(COINONE_TICKER_DATA_SOURCE),
+                        Exchange.UPBIT.name to get(UPBIT_TICKER_DATA_SOURCE),
+                        Exchange.BITHUMB.name to get(BITHUMB_TICKER_DATA_SOURCE),
+                        Exchange.GOPAX.name to get(GOPAX_TICKER_DATA_SOURCE),
+                        Exchange.BINANCE.name to get(BINANCE_TICKER_DATA_SOURCE),
+                        Exchange.BITFINEX.name to get(BITFINEX_TICKER_DATA_SOURCE),
+                        Exchange.HUOBI.name to get(HUOBI_TICKER_DATA_SOURCE),
+                        Exchange.COINEX.name to get(COINEX_TICKER_DATA_SOURCE),
+                        Exchange.HITBIT.name to get(HITBTC_TICKER_DATA_SOURCE))
+        ) as MainExchangeDataSource
     }
 }

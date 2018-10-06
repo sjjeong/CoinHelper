@@ -1,6 +1,7 @@
 package com.googry.coinhelper.network.model
 
 import com.google.gson.annotations.SerializedName
+import com.googry.coinhelper.data.model.ExchangeTicker
 import com.googry.coinhelper.data.model.ITicker
 import com.googry.coinhelper.data.model.Ticker
 
@@ -42,4 +43,7 @@ data class UpbitTicker(
                     diff = changeRate * if (change == "RISE") 100 else -100,
                     volume = accTradePrice24h
             )
+
+    override fun toExchangeTicker(exchange: String) = ExchangeTicker("Upbit", toTicker())
+
 }

@@ -1,19 +1,20 @@
 package com.googry.coinhelper.network.model
 
 import com.google.gson.annotations.SerializedName
+import com.googry.coinhelper.data.model.ExchangeTicker
 import com.googry.coinhelper.data.model.ITicker
 import com.googry.coinhelper.data.model.Ticker
 
-data class CoinexTickerResponse(
+data class CoinExAllTickerResponse(
         @SerializedName("code") val code: Int,
         @SerializedName("data") val data: Data,
         @SerializedName("message") val message: String
 ) {
     data class Data(
             @SerializedName("date") val date: Long,
-            @SerializedName("ticker") val ticker: Map<String, CoinexTicker>
+            @SerializedName("ticker") val ticker: Map<String, CoinExTicker>
     ) {
-        data class CoinexTicker(
+        data class CoinExTicker(
                 @SerializedName("buy") val buy: Double,
                 @SerializedName("buy_amount") val buyAmount: Double,
                 @SerializedName("sell") val sell: Double,
@@ -35,6 +36,9 @@ data class CoinexTickerResponse(
 
                 )
             }
+
+            override fun toExchangeTicker(exchange: String) = ExchangeTicker("CoinEx", toTicker())
+
         }
     }
 }

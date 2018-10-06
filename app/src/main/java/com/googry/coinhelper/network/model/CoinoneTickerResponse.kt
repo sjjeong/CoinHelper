@@ -1,6 +1,7 @@
 package com.googry.coinhelper.network.model
 
 import com.google.gson.annotations.SerializedName
+import com.googry.coinhelper.data.model.ExchangeTicker
 import com.googry.coinhelper.data.model.ITicker
 import com.googry.coinhelper.data.model.Ticker
 
@@ -14,7 +15,7 @@ data class CoinoneTicker(
         @SerializedName("yesterday_last") val yesterdayLast: String,
         @SerializedName("yesterday_low") val yesterdayLow: String,
         @SerializedName("high") val high: Double,
-        @SerializedName("currency") val currency: String,
+        @SerializedName("currency") val currency: String?,
         @SerializedName("low") val low: Double,
         @SerializedName("yesterday_first") val yesterdayFirst: String,
         @SerializedName("yesterday_volume") val yesterdayVolume: String,
@@ -23,7 +24,7 @@ data class CoinoneTicker(
 ) : ITicker {
     override fun toTicker(): Ticker {
         val diff = (last - first) / first * 100
-        return Ticker(currency = currency,
+        return Ticker(currency = currency ?: "",
                 baseCurrency = "KRW",
                 last = last,
                 high = high,
@@ -31,5 +32,7 @@ data class CoinoneTicker(
                 diff = diff,
                 volume = volume * last)
     }
+
+    override fun toExchangeTicker(exchange: String) = ExchangeTicker("Coinone", toTicker())
 }
 
