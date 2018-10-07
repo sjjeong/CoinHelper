@@ -99,19 +99,22 @@ fun TextView.setLast(ticker: Ticker) {
 
 @BindingAdapter(value = ["tradeDiff"])
 fun TextView.setTradeDiff(ticker: Ticker) {
-    text = String.format("%.2f%%", ticker.diff)
-    when {
-        ticker.diff > 0 -> {
-            setTextColor(ResourcesCompat.getColor(resources, R.color.diff_up, null))
-        }
-        ticker.diff < 0 -> {
-            setTextColor(ResourcesCompat.getColor(resources, R.color.diff_down, null))
-        }
-        else -> {
-            setTextColor(ResourcesCompat.getColor(resources, R.color.gray5, null))
+    text = ticker.diff?.let {
+        when {
+            it > 0 -> {
+                setTextColor(ResourcesCompat.getColor(resources, R.color.diff_up, null))
+            }
+            it < 0 -> {
+                setTextColor(ResourcesCompat.getColor(resources, R.color.diff_down, null))
+            }
+            else -> {
+                setTextColor(ResourcesCompat.getColor(resources, R.color.gray5, null))
 
+            }
         }
-    }
+        String.format("%.2f%%", it)
+    } ?: ""
+
 }
 
 

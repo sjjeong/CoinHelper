@@ -15,5 +15,8 @@ enum class BaseCurrency {
     BCH,
     EURS,
     DAI,
-    TUSD
+    TUSD,
+    QC,
+    ZB,
+    PAX
 }

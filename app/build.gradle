@@ -25,6 +25,7 @@ android {
         buildConfigField "String", "HuobiRestUrl", "\"https://api.huobi.pro/\""
         buildConfigField "String", "CoinExRestUrl", "\"https://api.coinex.com/\""
         buildConfigField "String", "HitbtcRestUrl", "\"https://api.hitbtc.com/\""
+        buildConfigField "String", "ZbComRestUrl", "\"http://api.zb.cn/\""
     }
     buildTypes {
         release {

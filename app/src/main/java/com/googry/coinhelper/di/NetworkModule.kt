@@ -113,4 +113,13 @@ val networkModule = applicationContext {
                 .build()
                 .create(HitbtcApi::class.java)
     }
+    bean {
+        Retrofit.Builder()
+                .baseUrl(BuildConfig.ZbComRestUrl)
+                .client(get())
+                .addCallAdapterFactory(get())
+                .addConverterFactory(get())
+                .build()
+                .create(ZbComApi::class.java)
+    }
 }

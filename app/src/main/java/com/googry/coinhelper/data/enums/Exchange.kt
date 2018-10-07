@@ -12,7 +12,8 @@ enum class Exchange(val nameRes: Int, val baseCurrencies: List<String>) {
     BITFINEX(R.string.bitfinex, arrayListOf(BaseCurrency.USD.name, BaseCurrency.EUR.name, BaseCurrency.GBP.name, BaseCurrency.JPY.name, BaseCurrency.BTC.name, BaseCurrency.ETH.name, BaseCurrency.EOS.name)),
     HUOBI(R.string.huobi, arrayListOf(BaseCurrency.USDT.name, BaseCurrency.BTC.name, BaseCurrency.ETH.name, BaseCurrency.HT.name)),
     COINEX(R.string.coinex, arrayListOf(BaseCurrency.BCH.name, BaseCurrency.BTC.name, BaseCurrency.ETH.name, BaseCurrency.USDT.name)),
-    HITBIT(R.string.hitbtc, arrayListOf(BaseCurrency.BTC.name, BaseCurrency.ETH.name, BaseCurrency.USD.name, BaseCurrency.EURS.name, BaseCurrency.DAI.name, BaseCurrency.TUSD.name))
+    HITBIT(R.string.hitbtc, arrayListOf(BaseCurrency.BTC.name, BaseCurrency.ETH.name, BaseCurrency.USD.name, BaseCurrency.EURS.name, BaseCurrency.DAI.name, BaseCurrency.TUSD.name)),
+    ZBCOM(R.string.zbcom, arrayListOf(BaseCurrency.QC.name, BaseCurrency.ZB.name, BaseCurrency.USDT.name, BaseCurrency.BTC.name, BaseCurrency.PAX.name))
 
 
 }

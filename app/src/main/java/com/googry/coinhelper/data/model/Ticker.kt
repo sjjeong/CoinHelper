@@ -9,7 +9,7 @@ open class Ticker(
 //                  var first: Double? = null,
         var volume: Double,
 //diff는 %값 ex) 1.5%는 1.5로
-        var diff: Double) : ITicker {
+        var diff: Double? = null) : ITicker {
 
     override fun toTicker() = this
 
