@@ -17,6 +17,14 @@ class CoinCompareViewModel(private val mainExchangeDataSource: MainExchangeDataS
 
     val exchangeTickerMap = HashMap<String, ExchangeTicker>()
 
+    var liveIsDescending = MutableLiveData<Boolean>().apply {
+        value = true
+    }
+
+    var liveSelectedSortItem = MutableLiveData<String>().apply {
+        value = "last"
+    }
+
     fun getExchangeTickers(): CompositeDisposable? {
         return if (liveCurrency.value.isNullOrEmpty()) {
             null
@@ -26,8 +34,55 @@ class CoinCompareViewModel(private val mainExchangeDataSource: MainExchangeDataS
                 liveExchangeTickers.value = exchangeTickerMap.map {
                     it.value
                 }
+                sortExchangeTicker()
             })
         }
+    }
+
+    fun onSortClick(item: String) {
+        if (item == liveSelectedSortItem.value) {
+            liveIsDescending.value = (!liveIsDescending.value!!)
+        } else {
+            liveSelectedSortItem.value = (item)
+        }
+
+        sortExchangeTicker()
+    }
+
+    private fun sortExchangeTicker(){
+        liveExchangeTickers.postValue(
+                if (liveIsDescending.value!!) {
+                    when (liveSelectedSortItem.value!!) {
+                        "exchange" -> liveExchangeTickers.value?.sortedByDescending {
+                            it.exchange
+                        }
+                        "last" -> liveExchangeTickers.value?.sortedByDescending {
+                            it.last
+                        }
+                        "diff" -> liveExchangeTickers.value?.sortedByDescending {
+                            it.diff
+                        }
+                        else -> liveExchangeTickers.value?.sortedByDescending {
+                            it.volume
+                        }
+                    }
+                } else {
+                    when (liveSelectedSortItem.value!!) {
+                        "exchange" -> liveExchangeTickers.value?.sortedBy {
+                            it.exchange
+                        }
+                        "last" -> liveExchangeTickers.value?.sortedBy {
+                            it.last
+                        }
+                        "diff" -> liveExchangeTickers.value?.sortedBy {
+                            it.diff
+                        }
+                        else -> liveExchangeTickers.value?.sortedBy {
+                            it.volume
+                        }
+                    }
+
+                })
     }
 
 }

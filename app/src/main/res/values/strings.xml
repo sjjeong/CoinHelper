@@ -41,5 +41,6 @@
     <string name="talk_to_developer">코인헬퍼와 카톡하기</string>
     <string name="menu">메뉴</string>
     <string name="space_slash_unit">/</string>
+    <string name="exchange_name">거래소명</string>
 
 </resources>

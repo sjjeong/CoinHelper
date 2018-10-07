@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="coinCompareVM"
             type="com.googry.coinhelper.viewmodel.CoinCompareViewModel" />
@@ -16,20 +18,28 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.CardView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:cardCornerRadius="8dp">
+            android:gravity="center_vertical"
+            android:paddingBottom="8dp"
+            android:paddingEnd="12dp"
+            android:paddingStart="12dp"
+            android:paddingTop="8dp">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:src="@drawable/ic_arrow_back" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
-                android:layout_marginStart="12dp"
+                android:layout_marginTop="2dp"
                 android:gravity="bottom"
-                android:orientation="horizontal"
-                android:padding="8dp">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -55,14 +65,140 @@
                     android:textSize="20sp" />
 
             </LinearLayout>
-        </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_marginStart="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="4dp"
+            android:paddingEnd="12dp"
+            android:paddingStart="12dp"
+            android:paddingTop="4dp">
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:gravity="center_vertical"
+                android:onClick='@{() ->coinCompareVM.onSortClick("exchange")}'
+                android:orientation="horizontal"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/exchange_name"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    isSelected="@{coinCompareVM.liveIsDescending}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_drop_selector"
+                    android:visibility='@{coinCompareVM.liveSelectedSortItem.equals("exchange") ? View.VISIBLE : View.GONE}' />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_weight="3"
+                android:gravity="center_vertical"
+                android:onClick='@{() ->coinCompareVM.onSortClick("last")}'
+                android:orientation="horizontal"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="@string/last"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    isSelected="@{coinCompareVM.liveIsDescending}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_drop_selector"
+                    android:visibility='@{coinCompareVM.liveSelectedSortItem.equals("last") ? View.VISIBLE : View.GONE}' />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:onClick='@{() ->coinCompareVM.onSortClick("diff")}'
+                android:orientation="horizontal"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="@string/trade_diff"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    isSelected="@{coinCompareVM.liveIsDescending}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_drop_selector"
+                    android:visibility='@{coinCompareVM.liveSelectedSortItem.equals("diff") ? View.VISIBLE : View.GONE}' />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:onClick='@{() -> coinCompareVM.onSortClick("volume")}'
+                android:orientation="horizontal"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="@string/trade_amount"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    isSelected="@{coinCompareVM.liveIsDescending}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_drop_selector"
+                    android:visibility='@{coinCompareVM.liveSelectedSortItem.equals("volume") ? View.VISIBLE : View.GONE}' />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_content"
+            replaceAll="@{coinCompareVM.liveExchangeTickers}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            replaceAll="@{coinCompareVM.liveExchangeTickers}"
             android:paddingBottom="8dp"
             android:paddingEnd="12dp"
             android:paddingStart="12dp"

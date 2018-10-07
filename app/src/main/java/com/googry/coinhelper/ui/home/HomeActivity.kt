@@ -131,6 +131,10 @@ class HomeActivity
             binding.suplRoot.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
             return
         }
+        if (binding.dlRoot.isDrawerOpen(binding.flEndSide)) {
+            binding.dlRoot.closeDrawer(binding.flEndSide)
+            return
+        }
         if (System.currentTimeMillis() - exitTime > 2000) {
             Toast.makeText(applicationContext, R.string.description_back_finish, Toast.LENGTH_SHORT).show()
             exitTime = System.currentTimeMillis()
