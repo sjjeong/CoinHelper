@@ -18,5 +18,9 @@ enum class BaseCurrency {
     TUSD,
     QC,
     ZB,
-    PAX
+    PAX,
+    LBCN,
+    QTUM,
+    ELA,
+    DAX
 }

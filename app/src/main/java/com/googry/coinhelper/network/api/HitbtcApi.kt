@@ -10,6 +10,6 @@ interface HitbtcApi {
     @GET("api/1/public/ticker")
     fun getAllTickers(): Single<Map<String, HitbtcTickerResponse>>
 
-    @GET("/api/1/public/{symbol}/ticker")
+    @GET("api/1/public/{symbol}/ticker")
     fun getTicker(@Path("symbol") symbol: String): Single<HitbtcTickerResponse>
 }

@@ -122,4 +122,13 @@ val networkModule = applicationContext {
                 .build()
                 .create(ZbComApi::class.java)
     }
+    bean {
+        Retrofit.Builder()
+                .baseUrl(BuildConfig.LBankRestUrl)
+                .client(get())
+                .addCallAdapterFactory(get())
+                .addConverterFactory(get())
+                .build()
+                .create(LBankApi::class.java)
+    }
 }

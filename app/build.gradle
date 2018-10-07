@@ -26,6 +26,7 @@ android {
         buildConfigField "String", "CoinExRestUrl", "\"https://api.coinex.com/\""
         buildConfigField "String", "HitbtcRestUrl", "\"https://api.hitbtc.com/\""
         buildConfigField "String", "ZbComRestUrl", "\"http://api.zb.cn/\""
+        buildConfigField "String", "LBankRestUrl", "\"https://api.lbkex.com/\""
     }
     buildTypes {
         release {
