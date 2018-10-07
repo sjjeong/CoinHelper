@@ -10,6 +10,6 @@ interface HuobiApi {
     @GET("market/tickers")
     fun getAllTickers(): Single<HuobiAllTickerResponse>
 
-    @GET("/market/detail/merged")
+    @GET("market/detail/merged")
     fun getTicker(@Query("symbol") symbol: String): Single<HuobiTickerResponse>
 }

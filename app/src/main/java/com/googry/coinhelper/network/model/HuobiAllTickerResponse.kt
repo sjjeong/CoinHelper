@@ -27,7 +27,7 @@ data class HuobiAllTickerResponse(
                     high = high,
                     low = low,
                     diff = diff,
-                    volume = vol * close)
+                    volume = amount * close)
         }
 
         override fun toExchangeTicker(exchange: String) = ExchangeTicker("Huobi", toTicker())
