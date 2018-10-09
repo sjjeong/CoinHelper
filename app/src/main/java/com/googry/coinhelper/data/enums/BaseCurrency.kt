@@ -22,5 +22,7 @@ enum class BaseCurrency {
     LBCN,
     QTUM,
     ELA,
-    DAX
+    DAX,
+    BIX,
+    GUSD
 }

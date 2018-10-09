@@ -131,4 +131,13 @@ val networkModule = applicationContext {
                 .build()
                 .create(LBankApi::class.java)
     }
+    bean {
+        Retrofit.Builder()
+                .baseUrl(BuildConfig.BiboxRestUrl)
+                .client(get())
+                .addCallAdapterFactory(get())
+                .addConverterFactory(get())
+                .build()
+                .create(BiboxApi::class.java)
+    }
 }

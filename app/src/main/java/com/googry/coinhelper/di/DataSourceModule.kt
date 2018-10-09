@@ -17,6 +17,7 @@ const val COINEX_TICKER_DATA_SOURCE = "COINEX_TICKER_DATA_SOURCE"
 const val HITBTC_TICKER_DATA_SOURCE = "HITBTC_TICKER_DATA_SOURCE"
 const val ZBCOM_TICKER_DATA_SOURCE = "ZBCOM_TICKER_DATA_SOURCE"
 const val LBANK_TICKER_DATA_SOURCE = "LBANK_TICKER_DATA_SOURCE"
+const val BIBOX_TICKER_DATA_SOURCE = "BIBOX_TICKER_DATA_SOURCE"
 
 val dataSourceModule = applicationContext {
     bean(COINONE_TICKER_DATA_SOURCE) {
@@ -52,6 +53,9 @@ val dataSourceModule = applicationContext {
     bean(LBANK_TICKER_DATA_SOURCE) {
         LBankTickerRepository(get()) as TickerDataSource
     }
+    bean(BIBOX_TICKER_DATA_SOURCE) {
+        BiboxTickerRepository(get()) as TickerDataSource
+    }
     bean {
         MainExchangeRepository(get(),
                 mapOf(Exchange.COINONE.name to get(COINONE_TICKER_DATA_SOURCE),
@@ -64,7 +68,8 @@ val dataSourceModule = applicationContext {
                         Exchange.COINEX.name to get(COINEX_TICKER_DATA_SOURCE),
                         Exchange.HITBIT.name to get(HITBTC_TICKER_DATA_SOURCE),
                         Exchange.ZBCOM.name to get(ZBCOM_TICKER_DATA_SOURCE),
-                        Exchange.LBANK.name to get(LBANK_TICKER_DATA_SOURCE))
+                        Exchange.LBANK.name to get(LBANK_TICKER_DATA_SOURCE),
+                        Exchange.BIBOX.name to get(BIBOX_TICKER_DATA_SOURCE))
         ) as MainExchangeDataSource
     }
 }
