@@ -20,7 +20,7 @@ data class BithumbAllTickerResponse(
             @SerializedName("volume_7day") val volume7day: Double,
             @SerializedName("buy_price") val buyPrice: Double,
             @SerializedName("sell_price") val sellPrice: Double,
-            @SerializedName("24H_fluctate") val hFluctate: Int,
+            @SerializedName("24H_fluctate") val hFluctate: Double,
             @SerializedName("24H_fluctate_rate") val hFluctateRate: Double
     ) : ITicker {
         override fun toTicker() =

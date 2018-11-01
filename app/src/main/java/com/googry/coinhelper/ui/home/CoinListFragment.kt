@@ -13,6 +13,7 @@ import com.googry.coinhelper.databinding.CoinListItemBinding
 import com.googry.coinhelper.ui.coin.CoinCompareActivity
 import com.googry.coinhelper.viewmodel.CoinListViewModel
 import com.googry.coinhelper.viewmodel.CoinSortViewModel
+import kotlinx.android.synthetic.main.coin_list_item.view.*
 import org.jetbrains.anko.intentFor
 import org.koin.android.architecture.ext.sharedViewModel
 import org.koin.android.architecture.ext.viewModel
@@ -21,13 +22,13 @@ import org.koin.android.architecture.ext.viewModel
 class CoinListFragment
     : BaseFragment<CoinListFragmentBinding>(R.layout.coin_list_fragment) {
 
-    private val KEY_BASE_CURRENCY = "KEY_BASE_CURRENCY"
-
     private val coinListViewModel by viewModel<CoinListViewModel>()
 
     private val coinSortViewModel by sharedViewModel<CoinSortViewModel>()
 
     companion object {
+
+        const val KEY_BASE_CURRENCY = "KEY_BASE_CURRENCY"
 
         fun newInstance(baseCurrency: String) = CoinListFragment().apply {
             arguments = Bundle().apply {
@@ -64,12 +65,11 @@ class CoinListFragment
                 }
             }
         }
-
     }
 
     override fun onResume() {
-        compositeDisposable.add(coinListViewModel.getAllTickers())
         super.onResume()
+        compositeDisposable.add(coinListViewModel.getAllTickers())
     }
 
     override fun onPause() {
