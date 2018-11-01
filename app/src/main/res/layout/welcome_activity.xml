@@ -45,7 +45,7 @@
             android:onClick="@{() -> welcomeViewModel.onNextClick()}"
             android:padding="20dp"
             android:text="@{welcomeViewModel.liveBtnNextTextRes}"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
