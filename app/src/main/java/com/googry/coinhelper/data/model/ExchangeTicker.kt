@@ -1,6 +1,6 @@
 package com.googry.coinhelper.data.model
 
-class ExchangeTicker(val exchange: String,
+class ExchangeTicker(val exchangeName: String,
                      ticker: Ticker)
     : Ticker(currency = ticker.currency,
         baseCurrency = ticker.baseCurrency,

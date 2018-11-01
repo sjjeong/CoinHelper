@@ -11,9 +11,9 @@ import java.text.DecimalFormat
 
 @BindingAdapter(value = ["tradeAmount"])
 fun TextView.setTradeAmount(ticker: Ticker) {
-    when (ticker.baseCurrency.toUpperCase()) {
+    when ((ticker.baseCurrency ?: "").toUpperCase()) {
         BaseCurrency.KRW.name -> {
-            var amount: Long = (ticker.volume).toLong()
+            var amount: Long = (ticker.volume)!!.toLong()
             text = String.format(context.getString(
                     when {
                         amount < 1_000_000L -> {
@@ -35,7 +35,7 @@ fun TextView.setTradeAmount(ticker: Ticker) {
             text = String.format(context.getString(R.string.trade_amount_milli_fmt, ticker.volume))
         }
         BaseCurrency.USDT.name -> {
-            var amount: Long = (ticker.volume).toLong()
+            var amount: Long = (ticker.volume)!!.toLong()
             text = String.format(context.getString(when {
                 amount < 1_000_000L -> {
                     R.string.trade_amount_fmt
@@ -56,7 +56,7 @@ fun TextView.setTradeAmount(ticker: Ticker) {
 
         }
         else -> {
-            var amount: Long = (ticker.volume).toLong()
+            var amount: Long = (ticker.volume)!!.toLong()
             var fmtResId = when {
                 amount < 1_000L -> {
                     R.string.trade_amount_milli_fmt
@@ -90,10 +90,10 @@ val doubleFormat = DecimalFormat("#,##0.00000000")
 val intFormat = DecimalFormat("#,###.##")
 @BindingAdapter(value = ["last"])
 fun TextView.setLast(ticker: Ticker) {
-    text = if (ticker.last > 1) {
-        intFormat.format(ticker.last)
+    text = if (ticker.last ?: .0 > 1) {
+        intFormat.format(ticker.last ?: 0)
     } else {
-        doubleFormat.format(ticker.last)
+        doubleFormat.format(ticker.last ?: 0)
     }
 }
 
@@ -114,6 +114,31 @@ fun TextView.setTradeDiff(ticker: Ticker) {
         }
         String.format("%.2f%%", it)
     } ?: ""
+
+}
+
+@BindingAdapter(value = ["priceDiffA", "priceDiffB"])
+fun TextView.setPriceDiff(priceDiffA: Double, priceDiffB: Double) {
+    val priceDiff = priceDiffA - priceDiffB
+    text = priceDiff.let {
+        when {
+            it > 0 -> {
+                setTextColor(ResourcesCompat.getColor(resources, R.color.diff_up, null))
+            }
+            it < 0 -> {
+                setTextColor(ResourcesCompat.getColor(resources, R.color.diff_down, null))
+            }
+            else -> {
+                setTextColor(ResourcesCompat.getColor(resources, R.color.gray5, null))
+
+            }
+        }
+        if ((it == Math.floor(it)) && !it.isInfinite()) {
+            intFormat.format(it)
+        } else {
+            doubleFormat.format(it)
+        }
+    }
 
 }
 

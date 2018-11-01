@@ -1,5 +1,6 @@
 package com.googry.coinhelper.network.model
 
+import com.googry.coinhelper.data.enums.Exchange
 import com.googry.coinhelper.data.model.ExchangeTicker
 import com.googry.coinhelper.data.model.ITicker
 import com.googry.coinhelper.data.model.Ticker
@@ -17,7 +18,7 @@ data class BitfinexAllTickerResponse(val data: List<String>)
         )
     }
 
-    override fun toExchangeTicker(exchange: String) = ExchangeTicker("Bitfinex", toTicker())
+    override fun toExchangeTicker(exchange: String) = ExchangeTicker(Exchange.BITFINEX.exchangeName, toTicker())
 
     companion object {
 

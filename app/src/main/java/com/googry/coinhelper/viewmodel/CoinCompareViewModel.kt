@@ -13,6 +13,10 @@ class CoinCompareViewModel(private val mainExchangeDataSource: MainExchangeDataS
 
     val liveBaseCurrency = MutableLiveData<String>()
 
+    val liveExchangeName = MutableLiveData<String>()
+
+    val liveTargetExchangeTicker = MutableLiveData<ExchangeTicker>()
+
     val liveExchangeTickers = MutableLiveData<List<ExchangeTicker>>()
 
     val exchangeTickerMap = HashMap<String, ExchangeTicker>()
@@ -25,14 +29,21 @@ class CoinCompareViewModel(private val mainExchangeDataSource: MainExchangeDataS
         value = "last"
     }
 
+    init {
+        liveExchangeName.value = mainExchangeDataSource.getSelectedExchange()?.exchangeName
+    }
+
     fun getExchangeTickers(): CompositeDisposable? {
         return if (liveCurrency.value.isNullOrEmpty()) {
             null
         } else {
             mainExchangeDataSource.getMergeTicker(liveCurrency.value!!, liveBaseCurrency.value, response = {
-                exchangeTickerMap[it.exchange] = it
+                exchangeTickerMap[it.exchangeName] = it
                 liveExchangeTickers.value = exchangeTickerMap.map {
                     it.value
+                }
+                liveExchangeName.value?.let {
+                    liveTargetExchangeTicker.value = exchangeTickerMap[it]
                 }
                 sortExchangeTicker()
             })
@@ -49,12 +60,12 @@ class CoinCompareViewModel(private val mainExchangeDataSource: MainExchangeDataS
         sortExchangeTicker()
     }
 
-    private fun sortExchangeTicker(){
+    private fun sortExchangeTicker() {
         liveExchangeTickers.postValue(
                 if (liveIsDescending.value!!) {
                     when (liveSelectedSortItem.value!!) {
-                        "exchange" -> liveExchangeTickers.value?.sortedByDescending {
-                            it.exchange
+                        "exchangeName" -> liveExchangeTickers.value?.sortedByDescending {
+                            it.exchangeName
                         }
                         "last" -> liveExchangeTickers.value?.sortedByDescending {
                             it.last
@@ -68,8 +79,8 @@ class CoinCompareViewModel(private val mainExchangeDataSource: MainExchangeDataS
                     }
                 } else {
                     when (liveSelectedSortItem.value!!) {
-                        "exchange" -> liveExchangeTickers.value?.sortedBy {
-                            it.exchange
+                        "exchangeName" -> liveExchangeTickers.value?.sortedBy {
+                            it.exchangeName
                         }
                         "last" -> liveExchangeTickers.value?.sortedBy {
                             it.last

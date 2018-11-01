@@ -20,6 +20,8 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:paddingBottom="2dp"
+            android:paddingEnd="@dimen/main_item_horizontal_padding"
+            android:paddingStart="@dimen/main_item_horizontal_padding"
             android:paddingTop="2dp"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 

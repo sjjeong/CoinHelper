@@ -112,7 +112,7 @@
                             app:tabPadding="2dp"
                             app:tabSelectedTextColor="@color/blue4"
                             app:tabTextAppearance="@style/TabLayoutTextStyle"
-                            app:tabTextColor="@color/gray2" />
+                            app:tabTextColor="@color/gray3" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -120,18 +120,19 @@
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
                             android:paddingBottom="4dp"
-                            android:paddingEnd="12dp"
-                            android:paddingStart="12dp"
+                            android:paddingEnd="@dimen/main_item_horizontal_padding"
+                            android:paddingStart="@dimen/main_item_horizontal_padding"
                             android:paddingTop="4dp">
 
 
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1.5"
+                                android:layout_weight="2"
                                 android:gravity="center_vertical"
                                 android:onClick='@{() ->coinSortVM.onSortClick("currency")}'
                                 android:orientation="horizontal"
+                                android:layout_marginEnd="@dimen/main_item_cell_margin"
                                 android:paddingBottom="4dp"
                                 android:paddingTop="4dp">
 
@@ -139,14 +140,14 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/coin_name"
-                                    android:textSize="14sp" />
+                                    android:textSize="12sp" />
 
                                 <ImageView
                                     isSelected="@{coinSortVM.liveIsDescending}"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:src="@drawable/ic_arrow_drop_selector"
-                                    android:visibility='@{coinSortVM.liveSelectedSortItem.equals("currency") ? View.VISIBLE : View.GONE}' />
+                                    android:visibility='@{coinSortVM.liveSelectedSortItem.equals("currency") ? View.VISIBLE : View.INVISIBLE}' />
 
                             </LinearLayout>
 
@@ -154,8 +155,7 @@
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginEnd="8dp"
-                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="@dimen/main_item_cell_margin"
                                 android:layout_weight="3"
                                 android:gravity="center_vertical"
                                 android:onClick='@{() ->coinSortVM.onSortClick("last")}'
@@ -169,20 +169,21 @@
                                     android:layout_weight="1"
                                     android:gravity="end"
                                     android:text="@string/last"
-                                    android:textSize="14sp" />
+                                    android:textSize="12sp" />
 
                                 <ImageView
                                     isSelected="@{coinSortVM.liveIsDescending}"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:src="@drawable/ic_arrow_drop_selector"
-                                    android:visibility='@{coinSortVM.liveSelectedSortItem.equals("last") ? View.VISIBLE : View.GONE}' />
+                                    android:visibility='@{coinSortVM.liveSelectedSortItem.equals("last") ? View.VISIBLE : View.INVISIBLE}' />
 
                             </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/main_item_cell_margin"
                                 android:layout_weight="2"
                                 android:gravity="center_vertical"
                                 android:onClick='@{() ->coinSortVM.onSortClick("diff")}'
@@ -196,14 +197,14 @@
                                     android:layout_weight="1"
                                     android:gravity="end"
                                     android:text="@string/trade_diff"
-                                    android:textSize="14sp" />
+                                    android:textSize="12sp" />
 
                                 <ImageView
                                     isSelected="@{coinSortVM.liveIsDescending}"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:src="@drawable/ic_arrow_drop_selector"
-                                    android:visibility='@{coinSortVM.liveSelectedSortItem.equals("diff") ? View.VISIBLE : View.GONE}' />
+                                    android:visibility='@{coinSortVM.liveSelectedSortItem.equals("diff") ? View.VISIBLE : View.INVISIBLE}' />
 
                             </LinearLayout>
 
@@ -223,14 +224,14 @@
                                     android:layout_weight="1"
                                     android:gravity="end"
                                     android:text="@string/trade_amount"
-                                    android:textSize="14sp" />
+                                    android:textSize="12sp" />
 
                                 <ImageView
                                     isSelected="@{coinSortVM.liveIsDescending}"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:src="@drawable/ic_arrow_drop_selector"
-                                    android:visibility='@{coinSortVM.liveSelectedSortItem.equals("volume") ? View.VISIBLE : View.GONE}' />
+                                    android:visibility='@{coinSortVM.liveSelectedSortItem.equals("volume") ? View.VISIBLE : View.INVISIBLE}' />
 
                             </LinearLayout>
 
@@ -257,8 +258,6 @@
                             android:background="@drawable/bg_bottom_round"
                             android:clipToPadding="false"
                             android:paddingBottom="8dp"
-                            android:paddingEnd="30dp"
-                            android:paddingStart="30dp"
                             android:paddingTop="8dp"
                             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                             app:layout_constraintBottom_toTopOf="@id/space"
@@ -297,12 +296,12 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:visibility="gone"
-            tools:visibitily="visible"
             app:adSize="BANNER"
             app:adUnitId="@string/admob_main_bottom_banner_key"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibitily="visible" />
     </android.support.constraint.ConstraintLayout>
 
 </layout>

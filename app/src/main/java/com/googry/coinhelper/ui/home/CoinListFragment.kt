@@ -13,7 +13,6 @@ import com.googry.coinhelper.databinding.CoinListItemBinding
 import com.googry.coinhelper.ui.coin.CoinCompareActivity
 import com.googry.coinhelper.viewmodel.CoinListViewModel
 import com.googry.coinhelper.viewmodel.CoinSortViewModel
-import kotlinx.android.synthetic.main.coin_list_item.view.*
 import org.jetbrains.anko.intentFor
 import org.koin.android.architecture.ext.sharedViewModel
 import org.koin.android.architecture.ext.viewModel

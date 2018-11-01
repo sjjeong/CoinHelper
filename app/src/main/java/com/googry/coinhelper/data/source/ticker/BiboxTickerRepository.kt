@@ -78,7 +78,7 @@ class BiboxTickerRepository(private val biboxApi: BiboxApi)
                     biboxApi.getTicker("${currency}_$baseCurrency")
                             .networkCommunication()
                             .subscribe({
-                                if (it.error == null) {
+                                if (it.error == null && it.result != null) {
                                     success.invoke(it.result.toExchangeTicker())
                                 }
                             }) {

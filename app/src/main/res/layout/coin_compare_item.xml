@@ -8,14 +8,16 @@
         <variable
             name="exchangeTicker"
             type="com.googry.coinhelper.data.model.ExchangeTicker" />
+
+        <variable
+            name="targetExchangeTicker"
+            type="com.googry.coinhelper.data.model.ExchangeTicker" />
     </data>
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         app:cardCornerRadius="8dp">
 
@@ -23,25 +25,25 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@android:color/white"
-            android:paddingEnd="12dp"
-            android:paddingStart="12dp">
+            android:background="@{exchangeTicker.exchangeName.equals(targetExchangeTicker.exchangeName) ? @color/blue1 : @android:color/white}"
+            android:paddingEnd="@dimen/main_item_horizontal_padding"
+            android:paddingStart="@dimen/main_item_horizontal_padding">
 
             <TextView
                 android:id="@+id/tv_exchange"
                 autoSizeText="@{true}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="@dimen/main_item_cell_margin"
                 android:lines="1"
-                android:textAllCaps="true"
+                android:text="@{exchangeTicker.exchangeName}"
+                android:textAllCaps="false"
                 android:textColor="@color/gray5"
                 android:textSize="16sp"
-                android:text="@{exchangeTicker.exchange}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tv_last"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
-                app:layout_constraintHorizontal_weight="1.5"
+                app:layout_constraintHorizontal_weight="2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Coinone" />
@@ -52,16 +54,15 @@
                 last="@{exchangeTicker}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginEnd="@dimen/main_item_cell_margin"
                 android:gravity="end"
                 android:lines="1"
                 android:textColor="@color/gray5"
-                android:textSize="16sp"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tv_volume"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
-                app:layout_constraintHorizontal_weight="3"
+                app:layout_constraintHorizontal_weight="2.5"
                 app:layout_constraintStart_toEndOf="@+id/tv_exchange"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="99,999,999" />
@@ -69,17 +70,19 @@
             <TextView
                 android:id="@+id/tv_volume"
                 autoSizeText="@{true}"
-                tradeDiff="@{exchangeTicker}"
+                priceDiffA="@{exchangeTicker.last}"
+                priceDiffB="@{targetExchangeTicker.last}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/main_item_cell_margin"
                 android:gravity="end"
                 android:lines="1"
                 android:textColor="@color/gray5"
-                android:textSize="16sp"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tv_diff"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
-                app:layout_constraintHorizontal_weight="2"
+                app:layout_constraintHorizontal_weight="2.5"
                 app:layout_constraintStart_toEndOf="@+id/tv_last"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="-10.99%" />
@@ -93,7 +96,7 @@
                 android:gravity="end"
                 android:lines="1"
                 android:textColor="@color/gray5"
-                android:textSize="16sp"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"

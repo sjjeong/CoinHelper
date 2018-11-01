@@ -7,7 +7,6 @@ import com.googry.coinhelper.R
 import com.googry.coinhelper.base.ui.BaseFragment
 import com.googry.coinhelper.base.ui.BaseRecyclerViewAdapter
 import com.googry.coinhelper.base.ui.BaseViewHolder
-import com.googry.coinhelper.data.enums.Exchange
 import com.googry.coinhelper.databinding.ExchangeSelectItemBinding
 import com.googry.coinhelper.databinding.MainExchangeSelectFragmentBinding
 import com.googry.coinhelper.viewmodel.ExchangeSelectViewModel

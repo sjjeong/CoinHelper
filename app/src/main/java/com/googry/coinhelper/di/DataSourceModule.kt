@@ -66,7 +66,7 @@ val dataSourceModule = applicationContext {
                         Exchange.BITFINEX.name to get(BITFINEX_TICKER_DATA_SOURCE),
                         Exchange.HUOBI.name to get(HUOBI_TICKER_DATA_SOURCE),
                         Exchange.COINEX.name to get(COINEX_TICKER_DATA_SOURCE),
-                        Exchange.HITBIT.name to get(HITBTC_TICKER_DATA_SOURCE),
+                        Exchange.HITBTC.name to get(HITBTC_TICKER_DATA_SOURCE),
                         Exchange.ZBCOM.name to get(ZBCOM_TICKER_DATA_SOURCE),
                         Exchange.LBANK.name to get(LBANK_TICKER_DATA_SOURCE),
                         Exchange.BIBOX.name to get(BIBOX_TICKER_DATA_SOURCE))

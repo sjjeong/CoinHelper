@@ -1,6 +1,7 @@
 package com.googry.coinhelper.network.model
 
 import com.google.gson.annotations.SerializedName
+import com.googry.coinhelper.data.enums.Exchange
 import com.googry.coinhelper.data.model.ExchangeTicker
 import com.googry.coinhelper.data.model.ITicker
 import com.googry.coinhelper.data.model.Ticker
@@ -37,6 +38,6 @@ data class HitbtcTickerResponse(
                 volume = volumeQuote?.toDouble()!!)
     }
 
-    override fun toExchangeTicker(exchange: String) = ExchangeTicker("HitBTC", toTicker())
+    override fun toExchangeTicker(exchange: String) = ExchangeTicker(Exchange.HITBTC.exchangeName, toTicker())
 
 }

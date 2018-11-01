@@ -33,6 +33,7 @@
     <string name="last">현재가</string>
     <string name="trade_amount">거래대금</string>
     <string name="trade_diff">전일대비</string>
+    <string name="price_diff">가격차이</string>
     <string name="please_select_main_exchange">주 거래소를 선택해 주세요.</string>
     <string name="select_exchange">거래소 선택</string>
     <string name="setting">설정</string>

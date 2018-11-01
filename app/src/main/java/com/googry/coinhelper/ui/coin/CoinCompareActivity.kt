@@ -39,7 +39,7 @@ class CoinCompareActivity
                         ) {
                             override fun onViewCreated(item: ExchangeTicker?) {
                                 binding.exchangeTicker = item
-
+                                binding.targetExchangeTicker = coinCompareViewModel.liveTargetExchangeTicker.value
                             }
                         }
             }

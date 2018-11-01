@@ -2,5 +2,7 @@
 <resources>
 
     <dimen name="coin_name_width"></dimen>
+    <dimen name="main_item_horizontal_padding">2dp</dimen>
+    <dimen name="main_item_cell_margin">4dp</dimen>
 
 </resources>

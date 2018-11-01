@@ -21,7 +21,9 @@ abstract class BaseViewHolder<ITEM : Any, B : ViewDataBinding>(
             @Suppress("UNCHECKED_CAST")
             onViewCreated(item as? ITEM?)
             binding.executePendingBindings()
+            itemView.visibility = View.VISIBLE
         } catch (e: Exception) {
+            e.printStackTrace()
             itemView.visibility = View.GONE
         }
     }
