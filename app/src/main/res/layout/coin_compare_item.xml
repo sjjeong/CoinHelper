@@ -70,8 +70,7 @@
             <TextView
                 android:id="@+id/tv_volume"
                 autoSizeText="@{true}"
-                priceDiffA="@{exchangeTicker.last}"
-                priceDiffB="@{targetExchangeTicker.last}"
+                priceDiff="@{exchangeTicker.last - targetExchangeTicker.last}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/main_item_cell_margin"

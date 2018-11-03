@@ -117,9 +117,8 @@ fun TextView.setTradeDiff(ticker: Ticker) {
 
 }
 
-@BindingAdapter(value = ["priceDiffA", "priceDiffB"])
-fun TextView.setPriceDiff(priceDiffA: Double, priceDiffB: Double) {
-    val priceDiff = priceDiffA - priceDiffB
+@BindingAdapter(value = ["priceDiff"])
+fun TextView.setPriceDiff(priceDiff: Double) {
     text = priceDiff.let {
         when {
             it > 0 -> {
