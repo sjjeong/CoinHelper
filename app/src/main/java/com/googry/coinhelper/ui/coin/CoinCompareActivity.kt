@@ -1,7 +1,7 @@
 package com.googry.coinhelper.ui.coin
 
 import android.os.Bundle
-import android.view.ViewGroup
+import com.android.databinding.library.baseAdapters.BR
 import com.googry.coinhelper.R
 import com.googry.coinhelper.base.ui.BaseActivity
 import com.googry.coinhelper.base.ui.BaseRecyclerViewAdapter
@@ -31,17 +31,14 @@ class CoinCompareActivity
         coinCompareViewModel.liveBaseCurrency.value = intent.getStringExtra(EXTRA_BASE_CURRENCY).toUpperCase()
         binding.run {
             coinCompareVM = coinCompareViewModel
-            rvContent.adapter = object : BaseRecyclerViewAdapter<ExchangeTicker>() {
-                override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-                        object : BaseViewHolder<ExchangeTicker, CoinCompareItemBinding>(
-                                R.layout.coin_compare_item,
-                                parent
-                        ) {
-                            override fun onViewCreated(item: ExchangeTicker?) {
-                                binding.exchangeTicker = item
-                                binding.targetExchangeTicker = coinCompareViewModel.liveTargetExchangeTicker.value
-                            }
-                        }
+            rvContent.adapter = object : BaseRecyclerViewAdapter<ExchangeTicker, CoinCompareItemBinding>(
+                    layoutRes = R.layout.coin_compare_item,
+                    bindingVariableId = BR.exchangeTicker
+            ) {
+                override fun onBindViewHolder(holder: BaseViewHolder<CoinCompareItemBinding>, position: Int) {
+                    super.onBindViewHolder(holder, position)
+                    holder.binding.targetExchangeTicker = coinCompareViewModel.liveTargetExchangeTicker.value
+                }
             }
         }
     }

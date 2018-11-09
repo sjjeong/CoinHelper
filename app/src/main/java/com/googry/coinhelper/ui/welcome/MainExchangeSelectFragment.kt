@@ -3,6 +3,7 @@ package com.googry.coinhelper.ui.welcome
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import com.android.databinding.library.baseAdapters.BR
 import com.googry.coinhelper.R
 import com.googry.coinhelper.base.ui.BaseFragment
 import com.googry.coinhelper.base.ui.BaseRecyclerViewAdapter
@@ -26,32 +27,29 @@ class MainExchangeSelectFragment
         binding.run {
             setLifecycleOwner(this@MainExchangeSelectFragment)
             vm = exchangeSelectViewModel
-            rvContent.adapter = object : BaseRecyclerViewAdapter<String>() {
-
-                var selectedItemView: View? = null
-
-                override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-                        object : BaseViewHolder<String, ExchangeSelectItemBinding>(
-                                R.layout.exchange_select_item,
-                                parent
-                        ) {
-
-                            init {
-                                itemView.setOnClickListener {
-                                    exchangeSelectViewModel.selectedItemPosition = adapterPosition
-                                    exchangeSelectViewModel.saveMainExchange()
-                                    notifyDataSetChanged()
-                                }
-                            }
-
-                            override fun onViewCreated(item: String?) {
-                                binding.run {
-                                    exchange = item
-                                    selectedPosition = exchangeSelectViewModel.selectedItemPosition
-                                    itemPosition = adapterPosition
-                                }
-                            }
+            rvContent.adapter = object : BaseRecyclerViewAdapter<String, ExchangeSelectItemBinding>(
+                    layoutRes = R.layout.exchange_select_item,
+                    bindingVariableId = BR.exchange
+            ) {
+                override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<ExchangeSelectItemBinding> {
+                    return super.onCreateViewHolder(parent, viewType).apply {
+                        itemView.setOnClickListener {
+                            val prevPosition = exchangeSelectViewModel.selectedItemPosition
+                            exchangeSelectViewModel.selectedItemPosition = adapterPosition
+                            exchangeSelectViewModel.saveMainExchange()
+                            notifyItemChanged(prevPosition)
+                            notifyItemChanged(adapterPosition)
                         }
+                    }
+                }
+
+                override fun onBindViewHolder(holder: BaseViewHolder<ExchangeSelectItemBinding>, position: Int) {
+                    super.onBindViewHolder(holder, position)
+                    holder.binding.run {
+                        selectedPosition = exchangeSelectViewModel.selectedItemPosition
+                        itemPosition = position
+                    }
+                }
             }
         }
     }

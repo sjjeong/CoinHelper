@@ -6,8 +6,9 @@ import com.googry.coinhelper.base.ui.BaseRecyclerViewAdapter
 
 @BindingAdapter(value = ["replaceAll"])
 fun RecyclerView.replaceAll(list: List<Any>?) {
-    (this.adapter as? BaseRecyclerViewAdapter<Any>)?.run {
-        replaceAll(list)
-        notifyDataSetChanged()
+    @Suppress("UNCHECKED_CAST")
+    (this.adapter as? BaseRecyclerViewAdapter<Any, *>)?.let {
+        it.replaceAll(list)
+        it.notifyDataSetChanged()
     }
 }

@@ -3,6 +3,7 @@ package com.googry.coinhelper.ui.home
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import com.android.databinding.library.baseAdapters.BR
 import com.googry.coinhelper.R
 import com.googry.coinhelper.base.ui.BaseFragment
 import com.googry.coinhelper.base.ui.BaseRecyclerViewAdapter
@@ -43,24 +44,18 @@ class CoinListFragment
         binding.run {
             coinListVM = coinListViewModel
             rvContent.run {
-                adapter = object : BaseRecyclerViewAdapter<Ticker>() {
-                    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-                            object : BaseViewHolder<Ticker, CoinListItemBinding>(
-                                    R.layout.coin_list_item, parent
-                            ) {
-                                init {
-                                    itemView.setOnClickListener {
-                                        startActivity(context.intentFor<CoinCompareActivity>(CoinCompareActivity.EXTRA_CURRENCY to binding.ticker?.currency,
-                                                CoinCompareActivity.EXTRA_BASE_CURRENCY to binding.ticker?.baseCurrency))
-                                    }
-                                }
-
-                                override fun onViewCreated(item: Ticker?) {
-                                    binding.run {
-                                        ticker = item
-                                    }
-                                }
+                adapter = object : BaseRecyclerViewAdapter<Ticker, CoinListItemBinding>(
+                        layoutRes = R.layout.coin_list_item,
+                        bindingVariableId = BR.ticker
+                ) {
+                    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<CoinListItemBinding> {
+                        return super.onCreateViewHolder(parent, viewType).apply {
+                            itemView.setOnClickListener {
+                                startActivity(context.intentFor<CoinCompareActivity>(CoinCompareActivity.EXTRA_CURRENCY to binding.ticker?.currency,
+                                        CoinCompareActivity.EXTRA_BASE_CURRENCY to binding.ticker?.baseCurrency))
                             }
+                        }
+                    }
                 }
             }
         }

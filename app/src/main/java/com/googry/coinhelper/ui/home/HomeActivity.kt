@@ -7,6 +7,7 @@ import android.support.v4.widget.DrawerLayout
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.android.databinding.library.baseAdapters.BR
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.googry.coinhelper.BuildConfig
@@ -83,34 +84,34 @@ class HomeActivity
 
                 }
             })
-            rvExchangeList.adapter = object : BaseRecyclerViewAdapter<String>() {
-
-                override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-                        object : BaseViewHolder<String, ExchangeSelectItemBinding>(
-                                R.layout.exchange_select_item,
-                                parent
-                        ) {
-
-                            init {
-                                itemView.setOnClickListener {
-                                    if (exchangeSelectViewModel.selectedItemPosition != adapterPosition) {
-                                        exchangeSelectViewModel.selectedItemPosition = adapterPosition
-                                        exchangeSelectViewModel.saveMainExchange()
-                                        notifyDataSetChanged()
-                                        refreshPage()
-                                    }
-                                }
-                            }
-
-                            override fun onViewCreated(item: String?) {
-                                binding.run {
-                                    exchange = item
-                                    selectedPosition = exchangeSelectViewModel.selectedItemPosition
-                                    itemPosition = adapterPosition
-                                }
+            rvExchangeList.adapter = object : BaseRecyclerViewAdapter<String, ExchangeSelectItemBinding>(
+                    layoutRes = R.layout.exchange_select_item,
+                    bindingVariableId = BR.exchange
+            ) {
+                override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<ExchangeSelectItemBinding> {
+                    return super.onCreateViewHolder(parent, viewType).apply {
+                        itemView.setOnClickListener {
+                            if (exchangeSelectViewModel.selectedItemPosition != adapterPosition) {
+                                val prevPosition = exchangeSelectViewModel.selectedItemPosition
+                                exchangeSelectViewModel.selectedItemPosition = adapterPosition
+                                exchangeSelectViewModel.saveMainExchange()
+                                notifyItemChanged(prevPosition)
+                                notifyItemChanged(adapterPosition)
+                                refreshPage()
                             }
                         }
+                    }
+                }
+
+                override fun onBindViewHolder(holder: BaseViewHolder<ExchangeSelectItemBinding>, position: Int) {
+                    super.onBindViewHolder(holder, position)
+                    holder.binding.run {
+                        selectedPosition = exchangeSelectViewModel.selectedItemPosition
+                        itemPosition = holder.adapterPosition
+                    }
+                }
             }
+
             if (!BuildConfig.DEBUG) {
                 adViewBanner.adListener = object : AdListener() {
                     override fun onAdLoaded() {
